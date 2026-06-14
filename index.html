@@ -17,166 +17,37 @@
     --chat-bg: #ffffff;
     --card: #eeeae0;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.6;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 3rem;
-    background: var(--paper);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.3rem;
-    color: var(--ink);
-    text-decoration: none;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: var(--paper); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+  .nav-logo { font-family: 'Inter', sans-serif; font-size: 1.3rem; color: var(--ink); text-decoration: none; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 64px;
-  }
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 4rem 6rem 5rem;
-    border-right: 1px solid var(--border);
-  }
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-  .hero-name {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(3rem, 5vw, 5.5rem);
-    line-height: 1.0;
-    margin-bottom: 1.5rem;
-    color: var(--ink);
-  }
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 5rem; border-right: 1px solid var(--border); }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'Inter', sans-serif; font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; margin-bottom: 1.5rem; color: var(--ink); }
   .hero-name em { font-style: italic; color: var(--accent); }
-  .hero-title {
-    font-size: 1.05rem;
-    color: var(--muted);
-    font-weight: 300;
-    max-width: 400px;
-    margin-bottom: 3rem;
-    line-height: 1.7;
-  }
+  .hero-title { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 400px; margin-bottom: 3rem; line-height: 1.7; }
   .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn {
-    padding: 0.75rem 1.75rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1.5px solid var(--ink);
-    color: var(--ink);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-block;
-  }
+  .btn { padding: 0.75rem 1.75rem; font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; transition: all 0.2s; display: inline-block; }
   .btn:hover { background: var(--ink); color: var(--paper); }
   .btn-filled { background: var(--accent); border-color: var(--accent); color: white; }
   .btn-filled:hover { background: #a8421a; border-color: #a8421a; color: white; }
-
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
+  .hero-right { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem; position: relative; overflow: hidden; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
   .stat-item { border-left: 2px solid var(--accent); padding-left: 1.2rem; }
-  .stat-num {
-    font-family: 'Inter', sans-serif;
-    font-size: 2.8rem;
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 0.3rem;
-  }
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .hero-scroll {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  }
+  .stat-num { font-family: 'Inter', sans-serif; font-size: 2.8rem; line-height: 1; color: var(--ink); margin-bottom: 0.3rem; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
   .scroll-line { width: 1px; height: 40px; background: var(--border); animation: scrollPulse 2s infinite; }
   @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-  /* SECTIONS */
   section { padding: 6rem 5rem; }
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    line-height: 1.15;
-    margin-bottom: 3rem;
-    max-width: 600px;
-  }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Inter', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; margin-bottom: 3rem; max-width: 600px; }
   .section-title em { font-style: italic; color: var(--muted); }
-
-  /* ABOUT */
   #about { background: var(--ink); color: var(--paper); border-top: 1px solid #222; }
   #about .section-label { color: var(--accent); }
   #about .section-title { color: var(--paper); }
@@ -185,340 +56,115 @@
   .about-text p + p { margin-top: 1.2rem; }
   .about-text strong { color: var(--paper); font-weight: 500; }
   .about-highlights { display: flex; flex-direction: column; gap: 1.5rem; }
-  .highlight-item {
-    border: 1px solid #333;
-    padding: 1.5rem;
-    position: relative;
-  }
-  .highlight-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--accent);
-  }
-  .highlight-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    color: var(--paper);
-    margin-bottom: 0.5rem;
-  }
+  .highlight-item { border: 1px solid #333; padding: 1.5rem; position: relative; }
+  .highlight-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); }
+  .highlight-title { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--paper); margin-bottom: 0.5rem; }
   .highlight-desc { font-size: 0.88rem; color: #999; line-height: 1.6; }
-
-  /* EXPERIENCE */
   #experience { background: var(--paper); }
   .timeline { position: relative; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-  .timeline-item {
-    padding-left: 2.5rem;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -4px; top: 8px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .timeline-item { padding-left: 2.5rem; margin-bottom: 3rem; position: relative; }
+  .timeline-item::before { content: ''; position: absolute; left: -4px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
   .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
-  .timeline-role {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.3rem;
-  }
+  .timeline-role { font-family: 'Inter', sans-serif; font-size: 1.3rem; }
   .timeline-company { color: var(--accent); font-weight: 500; font-size: 0.9rem; }
-  .timeline-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    white-space: nowrap;
-  }
+  .timeline-date { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
   .timeline-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 680px; }
   .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
-  .tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.6rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
-
-  /* SKILLS */
+  .tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.6rem; border: 1px solid var(--border); color: var(--muted); }
   #skills { background: var(--card); }
   .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .skill-card {
-    background: var(--paper);
-    padding: 2rem;
-    border: 1px solid var(--border);
-  }
-  .skill-icon {
-    font-family: 'DM Mono', monospace;
-    font-size: 1.5rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  .skill-cat {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-  }
+  .skill-card { background: var(--paper); padding: 2rem; border: 1px solid var(--border); }
+  .skill-icon { font-family: 'DM Mono', monospace; font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; }
+  .skill-cat { font-family: 'Inter', sans-serif; font-size: 1.1rem; margin-bottom: 0.75rem; }
   .skill-list { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
-
-  /* INTERESTS */
   #interests { background: var(--paper); }
   .interests-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .interest-card {
-    padding: 2.5rem;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
+  .interest-card { padding: 2.5rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.3s; }
   .interest-card:hover { border-color: var(--accent); }
-  .interest-num {
-    font-family: 'Inter', sans-serif;
-    font-size: 4rem;
-    color: var(--border);
-    position: absolute;
-    top: 1rem; right: 1.5rem;
-    line-height: 1;
-  }
-  .interest-name {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
+  .interest-num { font-family: 'Inter', sans-serif; font-size: 4rem; color: var(--border); position: absolute; top: 1rem; right: 1.5rem; line-height: 1; }
+  .interest-name { font-family: 'Inter', sans-serif; font-size: 1.4rem; margin-bottom: 0.75rem; }
   .interest-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-
-  /* PROJECTS */
   #projects { background: var(--ink); color: var(--paper); }
   #projects .section-title { color: var(--paper); }
   .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .project-card {
-    border: 1px solid #333;
-    padding: 2rem;
-    transition: border-color 0.3s, background 0.3s;
-    position: relative;
-  }
+  .project-card { border: 1px solid #333; padding: 2rem; transition: border-color 0.3s, background 0.3s; position: relative; }
   .project-card:hover { border-color: var(--accent); background: #1a1a17; }
-  .project-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  .project-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.2rem;
-    color: var(--paper);
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-  }
+  .project-badge { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .project-title { font-family: 'Inter', sans-serif; font-size: 1.2rem; color: var(--paper); margin-bottom: 0.75rem; line-height: 1.3; }
   .project-desc { font-size: 0.85rem; color: #999; line-height: 1.7; }
-  .project-impact {
-    margin-top: 1rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-  }
-
-  /* AWARDS */
+  .project-impact { margin-top: 1rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.05em; }
   #awards { background: var(--paper); }
   .awards-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .award-item {
-    display: flex; gap: 1.5rem; align-items: flex-start;
-    padding: 1.5rem;
-    border: 1px solid var(--border);
-  }
-  .award-medal {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.8rem;
-    min-width: 2.5rem;
-  }
+  .award-item { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem; border: 1px solid var(--border); }
+  .award-medal { font-family: 'Inter', sans-serif; font-size: 1.8rem; min-width: 2.5rem; }
   .award-name { font-weight: 500; margin-bottom: 0.25rem; }
   .award-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-  /* EDUCATION & CERTS */
   #education { background: var(--card); }
   .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
   .edu-item { margin-bottom: 2rem; }
-  .edu-degree {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-  }
+  .edu-degree { font-family: 'Inter', sans-serif; font-size: 1.2rem; margin-bottom: 0.25rem; }
   .edu-school { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem; }
   .edu-detail { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-  .cert-item {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .cert-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
   .cert-name { font-size: 0.9rem; font-weight: 500; }
   .cert-date { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+
+  /* DOCUMENTS */
+  #documents { background: var(--paper); }
+  .doc-group { margin-bottom: 3rem; }
+  .doc-group-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .doc-card { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--border); padding: 1.4rem; transition: border-color 0.2s, background 0.2s; }
+  .doc-card:hover { border-color: var(--accent); background: var(--paper); }
+  .doc-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+  .doc-title { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+  .doc-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 
   /* CHAT */
   #chat { background: var(--ink); padding: 6rem 5rem; }
   #chat .section-label { color: var(--accent); }
   #chat .section-title { color: var(--paper); }
   #chat .section-title em { color: #666; }
-  .chat-container {
-    max-width: 720px;
-    margin: 0 auto;
-    border: 1px solid #333;
-    background: #141410;
-    display: flex;
-    flex-direction: column;
-    height: 520px;
-  }
-  .chat-header {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #333;
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .chat-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: white;
-    flex-shrink: 0;
-  }
-  .chat-header-info {}
+  .chat-container { max-width: 720px; margin: 0 auto; border: 1px solid #333; background: #141410; display: flex; flex-direction: column; height: 520px; }
+  .chat-header { padding: 1rem 1.5rem; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 1rem; }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-size: 1rem; color: white; flex-shrink: 0; }
   .chat-header-name { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--paper); }
-  .chat-header-status {
-    font-family: 'DM Mono', monospace; font-size: 0.65rem;
-    color: #4ade80; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+  .chat-header-status { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #4ade80; letter-spacing: 0.1em; text-transform: uppercase; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
   .chat-messages::-webkit-scrollbar { width: 4px; }
   .chat-messages::-webkit-scrollbar-track { background: transparent; }
   .chat-messages::-webkit-scrollbar-thumb { background: #333; }
-  .message {
-    display: flex; gap: 0.75rem; align-items: flex-start;
-    animation: fadeUp 0.3s ease;
-  }
+  .message { display: flex; gap: 0.75rem; align-items: flex-start; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .message.user { flex-direction: row-reverse; }
-  .msg-avatar {
-    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-size: 0.65rem; color: white;
-  }
+  .msg-avatar { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: white; }
   .msg-avatar.marta { background: var(--accent); }
   .msg-avatar.you { background: var(--accent2); }
-  .msg-bubble {
-    max-width: 80%;
-    padding: 0.75rem 1rem;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    border: 1px solid #2a2a25;
-  }
+  .msg-bubble { max-width: 80%; padding: 0.75rem 1rem; font-size: 0.88rem; line-height: 1.6; border: 1px solid #2a2a25; }
   .message.marta .msg-bubble { background: #1e1e18; color: #ddd; border-color: #333; }
   .message.user .msg-bubble { background: #1a2a3a; color: #ccc; border-color: #2a3a4a; }
-  .typing-indicator {
-    display: flex; gap: 4px; align-items: center; padding: 0.5rem 0;
-  }
-  .typing-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: #555;
-    animation: typingBounce 1.4s infinite;
-  }
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 0.5rem 0; }
+  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: #555; animation: typingBounce 1.4s infinite; }
   .typing-dot:nth-child(2) { animation-delay: 0.2s; }
   .typing-dot:nth-child(3) { animation-delay: 0.4s; }
   @keyframes typingBounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
-  .chat-input-area {
-    border-top: 1px solid #333;
-    padding: 1rem 1.5rem;
-    display: flex; gap: 0.75rem;
-  }
-  .chat-input {
-    flex: 1;
-    background: #0f0e0b;
-    border: 1px solid #333;
-    color: var(--paper);
-    padding: 0.65rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .chat-input-area { border-top: 1px solid #333; padding: 1rem 1.5rem; display: flex; gap: 0.75rem; }
+  .chat-input { flex: 1; background: #0f0e0b; border: 1px solid #333; color: var(--paper); padding: 0.65rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
   .chat-input::placeholder { color: #555; }
   .chat-input:focus { border-color: var(--accent); }
-  .chat-send {
-    padding: 0.65rem 1.25rem;
-    background: var(--accent);
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: background 0.2s;
-  }
+  .chat-send { padding: 0.65rem 1.25rem; background: var(--accent); border: none; color: white; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s; }
   .chat-send:hover { background: #a8421a; }
   .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
-  .chat-suggestions {
-    padding: 0 1.5rem 1rem;
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-  }
-  .suggestion-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid #333;
-    color: #666;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+  .chat-suggestions { padding: 0 1.5rem 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .suggestion-btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.35rem 0.75rem; border: 1px solid #333; color: #666; background: transparent; cursor: pointer; transition: all 0.2s; }
   .suggestion-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* FOOTER */
-  footer {
-    background: #0a0908;
-    color: #555;
-    padding: 3rem 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #1a1a1a;
-    flex-wrap: wrap; gap: 1rem;
-  }
+  footer { background: #0a0908; color: #555; padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a1a1a; flex-wrap: wrap; gap: 1rem; }
   .footer-name { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #888; }
   .footer-links { display: flex; gap: 2rem; }
-  .footer-links a {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #555; text-decoration: none; transition: color 0.2s;
-  }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #555; text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--accent); }
-
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     #hero { grid-template-columns: 1fr; }
     .hero-left { padding: 4rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
@@ -532,6 +178,7 @@
     .interests-grid, .awards-list { grid-template-columns: 1fr; }
     footer { flex-direction: column; padding: 2rem; }
     #chat { padding: 4rem 1.5rem; }
+    .doc-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -545,6 +192,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#interests">Interests</a></li>
+    <li><a href="#documents">Documents</a></li>
     <li><a href="#chat">Ask Marta</a></li>
   </ul>
 </nav>
@@ -563,27 +211,12 @@
   </div>
   <div class="hero-right">
     <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">18+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">$20M+</div>
-        <div class="stat-label">Savings Driven</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">7</div>
-        <div class="stat-label">Companies</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Continents</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">18+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">$20M+</div><div class="stat-label">Savings Driven</div></div>
+      <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">Companies</div></div>
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Continents</div></div>
     </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
+    <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
   </div>
 </section>
 
@@ -621,72 +254,43 @@
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-header">
-        <div>
-          <div class="timeline-role">Associate Director, Data Science</div>
-          <div class="timeline-company">Digitas · Plano, TX</div>
-        </div>
+        <div><div class="timeline-role">Associate Director, Data Science</div><div class="timeline-company">Digitas · Plano, TX</div></div>
         <div class="timeline-date">Nov 2025 – Apr 2026</div>
       </div>
       <div class="timeline-desc">Led automation of cross-LoB Performance Analytics, delivering dynamic forecasting frameworks for sales visibility and demand planning. Spearheaded Marketing Mix Modeling, attribution, and incrementality solutions. Built and scaled high-performing data science teams through mentoring and cross-disciplinary collaboration.</div>
-      <div class="timeline-tags">
-        <span class="tag">Python</span><span class="tag">Spark</span><span class="tag">GCP</span><span class="tag">BigQuery</span><span class="tag">Looker</span><span class="tag">MMM</span>
-      </div>
+      <div class="timeline-tags"><span class="tag">Python</span><span class="tag">Spark</span><span class="tag">GCP</span><span class="tag">BigQuery</span><span class="tag">Looker</span><span class="tag">MMM</span></div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-header">
-        <div>
-          <div class="timeline-role">Data Scientist</div>
-          <div class="timeline-company">Meta (via Crystal Equation) · DFW, TX</div>
-        </div>
+        <div><div class="timeline-role">Data Scientist</div><div class="timeline-company">Meta (via Crystal Equation) · DFW, TX</div></div>
         <div class="timeline-date">Sep 2024 – Jun 2025</div>
       </div>
       <div class="timeline-desc">Led end-to-end data science for infrastructure and security domains. Built ARIMA and Prophet time-series models for capacity planning. Developed SaaS security maturity metrics, performed anomaly detection and feature engineering across infrastructure telemetry data.</div>
-      <div class="timeline-tags">
-        <span class="tag">ARIMA</span><span class="tag">Prophet</span><span class="tag">Sktime</span><span class="tag">Presto/SQL</span><span class="tag">TensorFlow</span>
-      </div>
+      <div class="timeline-tags"><span class="tag">ARIMA</span><span class="tag">Prophet</span><span class="tag">Sktime</span><span class="tag">Presto/SQL</span><span class="tag">TensorFlow</span></div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-header">
-        <div>
-          <div class="timeline-role">Infrastructure Planning Lead Data Scientist</div>
-          <div class="timeline-company">Citi · DFW, TX</div>
-        </div>
+        <div><div class="timeline-role">Infrastructure Planning Lead Data Scientist</div><div class="timeline-company">Citi · DFW, TX</div></div>
         <div class="timeline-date">Jul 2017 – Mar 2024</div>
       </div>
       <div class="timeline-desc">7 years building ML-driven capacity planning systems. Predicted compute/storage demand, prevented cluster breaches, and drove $20M+ in savings. Led Advanced Analytics, ML & AI team; built cluster breach and capacity growth predictors using regression, kNN, ANN, and decision trees.</div>
-      <div class="timeline-tags">
-        <span class="tag">Prophet</span><span class="tag">ARIMA</span><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">Gen AI</span><span class="tag">RAG</span>
-      </div>
+      <div class="timeline-tags"><span class="tag">Prophet</span><span class="tag">ARIMA</span><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">Gen AI</span><span class="tag">RAG</span></div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-header">
-        <div>
-          <div class="timeline-role">Data Analyst / Data Scientist</div>
-          <div class="timeline-company">Covenant Health Partners · Lubbock, TX</div>
-        </div>
+        <div><div class="timeline-role">Data Analyst / Data Scientist</div><div class="timeline-company">Covenant Health Partners · Lubbock, TX</div></div>
         <div class="timeline-date">Nov 2014 – Jun 2016</div>
       </div>
       <div class="timeline-desc">Automated a 40-hour manual report down to 15 minutes. Led Hospital Readmissions Prevention initiative using ML. Built analytics infrastructure for CHP strategic reporting.</div>
-      <div class="timeline-tags">
-        <span class="tag">R</span><span class="tag">SQL Server</span><span class="tag">MS Access</span><span class="tag">Healthcare ML</span>
-      </div>
+      <div class="timeline-tags"><span class="tag">R</span><span class="tag">SQL Server</span><span class="tag">MS Access</span><span class="tag">Healthcare ML</span></div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-header">
-        <div>
-          <div class="timeline-role">Earlier Roles</div>
-          <div class="timeline-company">Data Engineer @ RAPP · Quantitative Analyst @ Pacific Union · M Capital Warsaw · HP · Dialog Telecom · Fraunhofer Institute</div>
-        </div>
+        <div><div class="timeline-role">Earlier Roles</div><div class="timeline-company">Data Engineer @ RAPP · Quantitative Analyst @ Pacific Union · M Capital Warsaw · HP · Dialog Telecom · Fraunhofer Institute</div></div>
         <div class="timeline-date">2005 – 2017</div>
       </div>
       <div class="timeline-desc">Broad foundation spanning financial modeling, data engineering, marketing analytics, software research, and VAT reporting across Poland, Germany, and the US.</div>
-      <div class="timeline-tags">
-        <span class="tag">Financial Modeling</span><span class="tag">R</span><span class="tag">SAS</span><span class="tag">IBM Unica</span><span class="tag">Power BI</span>
-      </div>
+      <div class="timeline-tags"><span class="tag">Financial Modeling</span><span class="tag">R</span><span class="tag">SAS</span><span class="tag">IBM Unica</span><span class="tag">Power BI</span></div>
     </div>
   </div>
 </section>
@@ -696,36 +300,12 @@
   <p class="section-label">Technical Profile</p>
   <h2 class="section-title">Tools & <em>Capabilities</em></h2>
   <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">∿</div>
-      <div class="skill-cat">Time Series & Forecasting</div>
-      <div class="skill-list">ARIMA, ARIMAX, Prophet, Holt-Winters, ECM, Sktime, Pmdarima, multivariate forecasting, demand planning, anomaly detection</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">⟁</div>
-      <div class="skill-cat">Machine Learning</div>
-      <div class="skill-list">XGBoost, LightGBM, Random Forest, regression, clustering, kNN, ANN/TensorFlow, feature engineering, scikit-learn</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">λ</div>
-      <div class="skill-cat">Languages & Data</div>
-      <div class="skill-list">Python (Pandas, NumPy, Matplotlib, Seaborn, Statsmodels), R, SQL (Presto, MS SQL), MATLAB, SAS, PySpark, Hadoop</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">☁</div>
-      <div class="skill-cat">Cloud & MLOps</div>
-      <div class="skill-list">AWS, GCP (BigQuery), Spark, Git (GitLab/GitHub/BitBucket), CI/CD, model deployment, monitoring pipelines, REST APIs</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">◈</div>
-      <div class="skill-cat">Gen AI & NLP</div>
-      <div class="skill-list">LangChain, LLM agents, RAG, prompt engineering, HuggingFace, Llama-2, BERT, T5, GPT, text classification & summarization</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">▦</div>
-      <div class="skill-cat">Visualization & BI</div>
-      <div class="skill-list">Tableau, Power BI, Looker, QlikView, Unidash, Matplotlib, Seaborn, executive dashboards, data storytelling</div>
-    </div>
+    <div class="skill-card"><div class="skill-icon">&#8767;</div><div class="skill-cat">Time Series & Forecasting</div><div class="skill-list">ARIMA, ARIMAX, Prophet, Holt-Winters, ECM, Sktime, Pmdarima, multivariate forecasting, demand planning, anomaly detection</div></div>
+    <div class="skill-card"><div class="skill-icon">&#10753;</div><div class="skill-cat">Machine Learning</div><div class="skill-list">XGBoost, LightGBM, Random Forest, regression, clustering, kNN, ANN/TensorFlow, feature engineering, scikit-learn</div></div>
+    <div class="skill-card"><div class="skill-icon">&lambda;</div><div class="skill-cat">Languages & Data</div><div class="skill-list">Python (Pandas, NumPy, Matplotlib, Seaborn, Statsmodels), R, SQL (Presto, MS SQL), MATLAB, SAS, PySpark, Hadoop</div></div>
+    <div class="skill-card"><div class="skill-icon">&#9729;</div><div class="skill-cat">Cloud & MLOps</div><div class="skill-list">AWS, GCP (BigQuery), Spark, Git (GitLab/GitHub/BitBucket), CI/CD, model deployment, monitoring pipelines, REST APIs</div></div>
+    <div class="skill-card"><div class="skill-icon">&#9672;</div><div class="skill-cat">Gen AI & NLP</div><div class="skill-list">LangChain, LLM agents, RAG, prompt engineering, HuggingFace, Llama-2, BERT, T5, GPT, text classification & summarization</div></div>
+    <div class="skill-card"><div class="skill-icon">&#9638;</div><div class="skill-cat">Visualization & BI</div><div class="skill-list">Tableau, Power BI, Looker, QlikView, Unidash, Matplotlib, Seaborn, executive dashboards, data storytelling</div></div>
   </div>
 </section>
 
@@ -734,36 +314,12 @@
   <p class="section-label">What Drives Me</p>
   <h2 class="section-title">Research interests & <em>passions</em></h2>
   <div class="interests-grid">
-    <div class="interest-card">
-      <div class="interest-num">01</div>
-      <div class="interest-name">Energy Market Modeling</div>
-      <div class="interest-desc">Rooted in my Master's thesis on electricity spot and futures price prediction using ARIMA, ARIMAX, and Error Correction Models. I'm fascinated by the interplay of seasonal patterns, geopolitical shocks, and long-run equilibrium in energy markets — and how classical statistical theory can capture all three.</div>
-    </div>
-    <div class="interest-card">
-      <div class="interest-num">02</div>
-      <div class="interest-name">Neural Networks & Deep Learning</div>
-      <div class="interest-desc">From my Bachelor's ANN thesis on OCR to modern deep learning for forecasting — I'm excited by neural architectures that push beyond tabular ML. Particularly interested in temporal models like N-BEATS and Temporal Fusion Transformers for large-scale forecasting challenges.</div>
-    </div>
-    <div class="interest-card">
-      <div class="interest-num">03</div>
-      <div class="interest-name">Generative AI & LLM Applications</div>
-      <div class="interest-desc">Actively building with LangChain agents, RAG pipelines, and fine-tuned LLMs. I'm interested in practical, grounded applications of Gen AI — turning natural language into code, automating analytics workflows, and building responsible AI systems.</div>
-    </div>
-    <div class="interest-card">
-      <div class="interest-num">04</div>
-      <div class="interest-name">Capacity Planning & Optimization</div>
-      <div class="interest-desc">7 years at Citi gave me a deep appreciation for the stakes of infrastructure forecasting. I find the challenge of predicting demand under uncertainty — and converting model outputs into concrete resource allocation decisions — genuinely compelling.</div>
-    </div>
-    <div class="interest-card">
-      <div class="interest-num">05</div>
-      <div class="interest-name">Explainable AI & Model Interpretability</div>
-      <div class="interest-desc">I believe models that can't be explained can't be trusted in production. My MycoNet project used Grad-CAM for CNN explainability; I advocate for SHAP and LIME in tabular ML. Interpretability isn't a constraint — it's a feature.</div>
-    </div>
-    <div class="interest-card">
-      <div class="interest-num">06</div>
-      <div class="interest-name">Computational Mathematics</div>
-      <div class="interest-desc">My ECMI (European Consortium for Mathematics in Industry) education gave me a love for applied math — differential equations, numerical methods, optimization. I still find pure mathematical structure beautiful and return to it often when designing algorithms from scratch.</div>
-    </div>
+    <div class="interest-card"><div class="interest-num">01</div><div class="interest-name">Energy Market Modeling</div><div class="interest-desc">Rooted in my Master's thesis on electricity spot and futures price prediction using ARIMA, ARIMAX, and Error Correction Models. I'm fascinated by the interplay of seasonal patterns, geopolitical shocks, and long-run equilibrium in energy markets — and how classical statistical theory can capture all three.</div></div>
+    <div class="interest-card"><div class="interest-num">02</div><div class="interest-name">Neural Networks & Deep Learning</div><div class="interest-desc">From my Bachelor's ANN thesis on OCR to modern deep learning for forecasting — I'm excited by neural architectures that push beyond tabular ML. Particularly interested in temporal models like N-BEATS and Temporal Fusion Transformers for large-scale forecasting challenges.</div></div>
+    <div class="interest-card"><div class="interest-num">03</div><div class="interest-name">Generative AI & LLM Applications</div><div class="interest-desc">Actively building with LangChain agents, RAG pipelines, and fine-tuned LLMs. I'm interested in practical, grounded applications of Gen AI — turning natural language into code, automating analytics workflows, and building responsible AI systems.</div></div>
+    <div class="interest-card"><div class="interest-num">04</div><div class="interest-name">Capacity Planning & Optimization</div><div class="interest-desc">7 years at Citi gave me a deep appreciation for the stakes of infrastructure forecasting. I find the challenge of predicting demand under uncertainty — and converting model outputs into concrete resource allocation decisions — genuinely compelling.</div></div>
+    <div class="interest-card"><div class="interest-num">05</div><div class="interest-name">Explainable AI & Model Interpretability</div><div class="interest-desc">I believe models that can't be explained can't be trusted in production. My MycoNet project used Grad-CAM for CNN explainability; I advocate for SHAP and LIME in tabular ML. Interpretability isn't a constraint — it's a feature.</div></div>
+    <div class="interest-card"><div class="interest-num">06</div><div class="interest-name">Computational Mathematics</div><div class="interest-desc">My ECMI (European Consortium for Mathematics in Industry) education gave me a love for applied math — differential equations, numerical methods, optimization. I still find pure mathematical structure beautiful and return to it often when designing algorithms from scratch.</div></div>
   </div>
 </section>
 
@@ -772,42 +328,12 @@
   <p class="section-label">Selected Work</p>
   <h2 class="section-title">Notable projects & <em>impact</em></h2>
   <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-badge">Citi · 2019</div>
-      <div class="project-title">MaxVM Calculator</div>
-      <div class="project-desc">ML-driven utility forecasting the maximum number of virtual machines per cluster, using custom algorithms analyzing growth patterns and utilization trends. Automated previously manual capacity management.</div>
-      <div class="project-impact">→ Gold Award · Part of $20M+ in 2019 savings</div>
-    </div>
-    <div class="project-card">
-      <div class="project-badge">Citi · 2019</div>
-      <div class="project-title">PEGGI — ML Capacity Forecasting</div>
-      <div class="project-desc">ML pipeline that sanitizes unclean infrastructure data before modeling, boosting predictive power 10×. Analyzed trend highs/lows to produce accurate capacity trend lines for IaaS infrastructure.</div>
-      <div class="project-impact">→ Copper Award · Released to PROD Nov 2019</div>
-    </div>
-    <div class="project-card">
-      <div class="project-badge">Citi · 2020</div>
-      <div class="project-title">Scale I/O & Infrastructure Dashboards</div>
-      <div class="project-desc">First global dashboard created with the storage team — providing unified view of Scale I/O across all major data centers with drill-down to cluster/pool level. Enabled pre-allocation work. Also built DMZ, Tech Refresh, and ORAaS dashboards.</div>
-      <div class="project-impact">→ Copper Award (×2) · Champions Progress</div>
-    </div>
-    <div class="project-card">
-      <div class="project-badge">Gen AI · 2024</div>
-      <div class="project-title">LangChain Data Science Assistant</div>
-      <div class="project-desc">End-to-end Gen AI solution using LangChain and LLM agents to automate data analysis, data science tasks, and database querying. Converted natural language to executable code, enhancing accessibility for non-developers.</div>
-      <div class="project-impact">→ MIT Applied Data Science · GitHub</div>
-    </div>
-    <div class="project-card">
-      <div class="project-badge">Gen AI · 2024</div>
-      <div class="project-title">AI Support Ticket System</div>
-      <div class="project-desc">Generative AI application using Llama-2 to automatically classify tickets, assign priority, estimate resolution times, generate responses based on sentiment analysis, and structure results as JSON.</div>
-      <div class="project-impact">→ Great Learning Gen AI Certification</div>
-    </div>
-    <div class="project-card">
-      <div class="project-badge">Computer Vision · Personal</div>
-      <div class="project-title">MycoNet — Fungal Classifier</div>
-      <div class="project-desc">CNN-based microscopy classifier for dermatophyte & yeast detection, trained from scratch. Includes Grad-CAM explainability, MLFlow experiment tracking, and Streamlit deployment. Full end-to-end ML lifecycle.</div>
-      <div class="project-impact">→ XAI · MLFlow · Streamlit · GitHub</div>
-    </div>
+    <div class="project-card"><div class="project-badge">Citi · 2019</div><div class="project-title">MaxVM Calculator</div><div class="project-desc">ML-driven utility forecasting the maximum number of virtual machines per cluster, using custom algorithms analyzing growth patterns and utilization trends. Automated previously manual capacity management.</div><div class="project-impact">→ Gold Award · Part of $20M+ in 2019 savings</div></div>
+    <div class="project-card"><div class="project-badge">Citi · 2019</div><div class="project-title">PEGGI — ML Capacity Forecasting</div><div class="project-desc">ML pipeline that sanitizes unclean infrastructure data before modeling, boosting predictive power 10×. Analyzed trend highs/lows to produce accurate capacity trend lines for IaaS infrastructure.</div><div class="project-impact">→ Copper Award · Released to PROD Nov 2019</div></div>
+    <div class="project-card"><div class="project-badge">Citi · 2020</div><div class="project-title">Scale I/O & Infrastructure Dashboards</div><div class="project-desc">First global dashboard created with the storage team — providing unified view of Scale I/O across all major data centers with drill-down to cluster/pool level. Enabled pre-allocation work. Also built DMZ, Tech Refresh, and ORAaS dashboards.</div><div class="project-impact">→ Copper Award (x2) · Champions Progress</div></div>
+    <div class="project-card"><div class="project-badge">Gen AI · 2024</div><div class="project-title">LangChain Data Science Assistant</div><div class="project-desc">End-to-end Gen AI solution using LangChain and LLM agents to automate data analysis, data science tasks, and database querying. Converted natural language to executable code, enhancing accessibility for non-developers.</div><div class="project-impact">→ MIT Applied Data Science · <a href="https://nbviewer.org/github/MartaWheeler/MartaWheeler.github.io/blob/main/docs/langchain_data_science_assistant.ipynb" target="_blank" style="color:var(--accent);text-decoration:none;">View Notebook ↗</a></div></div>
+    <div class="project-card"><div class="project-badge">Gen AI · 2024</div><div class="project-title">AI Support Ticket System</div><div class="project-desc">Generative AI application using Llama-2 to automatically classify tickets, assign priority, estimate resolution times, generate responses based on sentiment analysis, and structure results as JSON.</div><div class="project-impact">→ Great Learning Gen AI Certification · <a href="https://nbviewer.org/github/MartaWheeler/MartaWheeler.github.io/blob/main/docs/genai_nlp_midterm_ticket_classification.ipynb" target="_blank" style="color:var(--accent);text-decoration:none;">View Notebook ↗</a></div></div>
+    <div class="project-card"><div class="project-badge">Computer Vision · Personal</div><div class="project-title">MycoNet — Fungal Classifier</div><div class="project-desc">CNN-based microscopy classifier for dermatophyte & yeast detection, trained from scratch. Includes Grad-CAM explainability, MLFlow experiment tracking, and Streamlit deployment. Full end-to-end ML lifecycle.</div><div class="project-impact">→ XAI · MLFlow · Streamlit · GitHub</div></div>
   </div>
 </section>
 
@@ -816,34 +342,10 @@
   <p class="section-label">Recognition</p>
   <h2 class="section-title">Awards & <em>Achievements</em></h2>
   <div class="awards-list">
-    <div class="award-item">
-      <div class="award-medal">🥇</div>
-      <div>
-        <div class="award-name">Gold Award — MaxVM Calculator</div>
-        <div class="award-desc">Drives value for Clients · March 2019. ML-driven capacity forecasting tool contributing to $20M+ in firm savings.</div>
-      </div>
-    </div>
-    <div class="award-item">
-      <div class="award-medal">🥉</div>
-      <div>
-        <div class="award-name">Copper Award — PEGGI ML System</div>
-        <div class="award-desc">Delivers Results · October 2019. IaaS capacity forecasting system with 10× predictive accuracy improvement.</div>
-      </div>
-    </div>
-    <div class="award-item">
-      <div class="award-medal">🥉</div>
-      <div>
-        <div class="award-name">Copper Award — Scale I/O Dashboard</div>
-        <div class="award-desc">Champions Progress · November 2020. First global storage dashboard enabling cross-team pre-allocation planning.</div>
-      </div>
-    </div>
-    <div class="award-item">
-      <div class="award-medal">🥉</div>
-      <div>
-        <div class="award-name">Copper Award — Infrastructure Dashboards</div>
-        <div class="award-desc">Champions Progress · November 2020. DMZ, Tech Refresh, and ORAaS dashboards for capacity monitoring and forecasting.</div>
-      </div>
-    </div>
+    <div class="award-item"><div class="award-medal">🥇</div><div><div class="award-name">Gold Award — MaxVM Calculator</div><div class="award-desc">Drives value for Clients · March 2019. ML-driven capacity forecasting tool contributing to $20M+ in firm savings.</div></div></div>
+    <div class="award-item"><div class="award-medal">🥉</div><div><div class="award-name">Copper Award — PEGGI ML System</div><div class="award-desc">Delivers Results · October 2019. IaaS capacity forecasting system with 10× predictive accuracy improvement.</div></div></div>
+    <div class="award-item"><div class="award-medal">🥉</div><div><div class="award-name">Copper Award — Scale I/O Dashboard</div><div class="award-desc">Champions Progress · November 2020. First global storage dashboard enabling cross-team pre-allocation planning.</div></div></div>
+    <div class="award-item"><div class="award-medal">🥉</div><div><div class="award-name">Copper Award — Infrastructure Dashboards</div><div class="award-desc">Champions Progress · November 2020. DMZ, Tech Refresh, and ORAaS dashboards for capacity monitoring and forecasting.</div></div></div>
   </div>
 </section>
 
@@ -853,39 +355,89 @@
   <h2 class="section-title">Education & <em>credentials</em></h2>
   <div class="edu-grid">
     <div>
-      <div class="edu-item">
-        <div class="edu-degree">M.Sc. Mathematics</div>
-        <div class="edu-school">Wrocław University of Technology · ECMI Program</div>
-        <div class="edu-detail">European Consortium for Mathematics in Industry. Thesis: <em>Natural Resource Price Prediction Using Time Series Methods (ARIMA, ARIMAX, ECM)</em></div>
-      </div>
-      <div class="edu-item">
-        <div class="edu-degree">B.Sc. Computer Science</div>
-        <div class="edu-school">Warsaw University of Technology</div>
-        <div class="edu-detail">Thesis: <em>E-learning Project for Primary Education (OCR, Artificial Neural Network)</em></div>
-      </div>
-      <div class="edu-item">
-        <div class="edu-degree">Software Engineering (Exchange)</div>
-        <div class="edu-school">University of Kaiserslautern · Germany</div>
-        <div class="edu-detail">Socrates–Erasmus Scholarship. Research assistant at Fraunhofer Institute for Industrial Mathematics.</div>
-      </div>
+      <div class="edu-item"><div class="edu-degree">M.Sc. Mathematics</div><div class="edu-school">Wrocław University of Technology · ECMI Program</div><div class="edu-detail">European Consortium for Mathematics in Industry. Thesis: <em>Natural Resource Price Prediction Using Time Series Methods (ARIMA, ARIMAX, ECM)</em></div></div>
+      <div class="edu-item"><div class="edu-degree">B.Sc. Computer Science</div><div class="edu-school">Warsaw University of Technology</div><div class="edu-detail">Thesis: <em>E-learning Project for Primary Education (OCR, Artificial Neural Network)</em></div></div>
+      <div class="edu-item"><div class="edu-degree">Software Engineering (Exchange)</div><div class="edu-school">University of Kaiserslautern · Germany</div><div class="edu-detail">Socrates–Erasmus Scholarship. Research assistant at Fraunhofer Institute for Industrial Mathematics.</div></div>
     </div>
     <div>
-      <div class="cert-item">
-        <div class="cert-name">Applied Data Science — MIT Online</div>
-        <div class="cert-date">Feb 2023</div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-name">Generative AI for NLP — Great Learning</div>
-        <div class="cert-date">Apr 2024</div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-name">Practical Data Science — Divergence Academy</div>
-        <div class="cert-date">Jul 2018</div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-name">Python Certification — ICM Warsaw</div>
-        <div class="cert-date">Jan 2011</div>
-      </div>
+      <div class="cert-item"><div class="cert-name">Applied Data Science — MIT Online</div><div class="cert-date">Feb 2023</div></div>
+      <div class="cert-item"><div class="cert-name">Generative AI for NLP — Great Learning</div><div class="cert-date">Apr 2024</div></div>
+      <div class="cert-item"><div class="cert-name">Practical Data Science — Divergence Academy</div><div class="cert-date">Jul 2018</div></div>
+      <div class="cert-item"><div class="cert-name">Python Certification — ICM Warsaw</div><div class="cert-date">Jan 2011</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section id="documents">
+  <p class="section-label">Portfolio</p>
+  <h2 class="section-title">Documents & <em>publications</em></h2>
+
+  <div class="doc-group">
+    <div class="doc-group-label">Key Documents</div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Marta_Wheeler_resume.pdf" target="_blank">
+        <div class="doc-icon">📄</div>
+        <div class="doc-title">Resume</div>
+        <div class="doc-desc">Marta Wheeler — Lead Data Scientist</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Growth%20Prediction%20Doc_2.pdf" target="_blank">
+        <div class="doc-icon">📊</div>
+        <div class="doc-title">Infrastructure Growth Prediction</div>
+        <div class="doc-desc">Production forecasting methodology — Citi (2018)</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Breach_Prediction.pdf" target="_blank">
+        <div class="doc-icon">🔍</div>
+        <div class="doc-title">Capacity Breach Prediction</div>
+        <div class="doc-desc">ML model for infrastructure risk — Citi · 97.58% accuracy</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="doc-group">
+    <div class="doc-group-label">Academic</div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Marta_Jankowska_thesis.pdf" target="_blank">
+        <div class="doc-icon">🎓</div>
+        <div class="doc-title">Master's Thesis</div>
+        <div class="doc-desc">Natural Resource Price Prediction — ARIMA, ARIMAX, ECM · Wrocław University of Technology</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/natural_gas_price_prediction.pdf" target="_blank">
+        <div class="doc-icon">📈</div>
+        <div class="doc-title">Master's Thesis Presentation</div>
+        <div class="doc-desc">Natural gas price prediction using time series methods</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Praca_inzynierska.pdf" target="_blank">
+        <div class="doc-icon">🎓</div>
+        <div class="doc-title">Bachelor's Thesis (Polish)</div>
+        <div class="doc-desc">E-learning & Artificial Neural Networks · Warsaw University of Technology</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/ANN_2.pdf" target="_blank">
+        <div class="doc-icon">🧠</div>
+        <div class="doc-title">ANN Presentation</div>
+        <div class="doc-desc">Artificial Neural Networks — Bachelor's thesis companion</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="doc-group">
+    <div class="doc-group-label">Additional Projects</div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://martawheeler.github.io/docs/MartaWheeler_Final_report.pdf" target="_blank">
+        <div class="doc-icon">🎵</div>
+        <div class="doc-title">Music Recommendation System</div>
+        <div class="doc-desc">Capstone project — full report</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/MartaWheeler_MRS_presentation.pptx" target="_blank">
+        <div class="doc-icon">🎵</div>
+        <div class="doc-title">Music Recommendation System</div>
+        <div class="doc-desc">Capstone project — presentation</div>
+      </a>
+      <a class="doc-card" href="https://martawheeler.github.io/docs/Fligh_delay_prediction_presentation.pdf" target="_blank">
+        <div class="doc-icon">✈️</div>
+        <div class="doc-title">Flight Delay Prediction</div>
+        <div class="doc-desc">ML classification project — presentation</div>
+      </a>
     </div>
   </div>
 </section>
@@ -945,7 +497,7 @@ EXPERIENCE:
 - Infrastructure Planning Lead Data Scientist, Citi, DFW, TX (Jul 2017 – Mar 2024): 7 years. Built cluster breach and capacity growth prediction models (regression, kNN, ANN, decision trees). Python, R, Prophet, ARIMA. Drove $20M+ in savings 2019. Led ML & AI team. Migrated DS projects to enterprise analytics platform.
 - Data Analyst/Scientist, Covenant Health Partners, Lubbock TX (Nov 2014 – Jun 2016): Automated 40-hour report to 15 minutes. Led Hospital Readmissions Prevention ML initiative.
 - Data Engineer, RAPP, DFW, TX (Jul 2016 – Feb 2017): SQL queries, IBM Unica, data models in R.
-- Quantitative Analyst, Pacific Union Financial (Feb–Jul 2017): Power BI, SQL, credit calculator.
+- Quantitative Analyst, Pacific Union Financial (Feb-Jul 2017): Power BI, SQL, credit calculator.
 - Earlier: M Capital Warsaw (quant analyst, financial time series), HP Wroclaw (VAT reporting), Dialog Telecom (data analyst), Fraunhofer Institute Germany (software developer/research assistant x2).
 
 EDUCATION:
@@ -985,7 +537,13 @@ INTERESTS:
 - Explainable AI (Grad-CAM, SHAP, LIME)
 - Computational mathematics and applied statistics
 
-TIME SERIES BACKGROUND: Master's thesis modeled electricity spot and futures prices using ARIMA, ARIMAX, ECM. At Citi built Prophet pipelines for compute/storage demand. At Meta expanded with Prophet, Holt-Winters, ARIMA for traffic/system utilization at scale. At M Capital built financial price prediction models. Interested in modern neural forecasting architectures.
+DOCUMENTS AVAILABLE AT: https://martawheeler.github.io/docs/
+- Resume: Marta_Wheeler_resume.pdf
+- Master's Thesis: Marta_Jankowska_thesis.pdf
+- Master's Thesis Presentation: natural_gas_price_prediction.pdf
+- Infrastructure Growth Prediction (Citi): Growth Prediction Doc_2.pdf
+- Capacity Breach Prediction (Citi): Breach_Prediction.pdf
+- Bachelor's Thesis: Praca_inzynierska.pdf
 
 PERSONALITY: Warm, direct, intellectually curious. Loves the craft of data science. Strong communicator who can explain technical concepts to non-technical stakeholders. Polish-born with international education background. Passionate about making data actually drive decisions.`;
 
@@ -1002,7 +560,6 @@ async function sendMessage() {
   btn.disabled = true;
 
   const typingEl = appendTyping();
-
   conversationHistory.push({ role: 'user', content: msg });
 
   try {
@@ -1018,7 +575,6 @@ async function sendMessage() {
     });
     const data = await response.json();
     const reply = data.content?.map(b => b.text || '').join('') || "I'm not sure how to answer that — could you rephrase?";
-
     conversationHistory.push({ role: 'assistant', content: reply });
     typingEl.remove();
     appendMessage('marta', reply);
@@ -1053,16 +609,7 @@ function appendTyping() {
   const container = document.getElementById('chatMessages');
   const div = document.createElement('div');
   div.className = 'message marta';
-  div.innerHTML = `
-    <div class="msg-avatar marta">M</div>
-    <div class="msg-bubble">
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-    </div>
-  `;
+  div.innerHTML = `<div class="msg-avatar marta">M</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
   return div;
