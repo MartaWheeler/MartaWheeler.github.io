@@ -167,7 +167,7 @@
         </div>
       </div>
       <div class="panel-chart-wrap"><canvas id="chart-regional"></canvas></div>
-      <div class="panel-footnote">EIA Daily Region Data API · ERCO, PJM, MISO, CISO</div>
+      <div class="panel-footnote">EIA Daily Region Data API · <strong style="color: var(--ink);">ERCOT</strong> (Texas grid) &amp; <strong style="color: var(--ink);">PJM</strong> (Mid-Atlantic/Virginia grid) = heavy AI data-center buildout · <strong style="color: var(--ink);">MISO</strong> (Midwest) &amp; <strong style="color: var(--ink);">CISO</strong> (California) = comparison regions with less concentration</div>
     </div>
 
     <div class="panel">
@@ -212,6 +212,39 @@
       <summary>The question this dashboard is testing <span class="chevron">▸</span></summary>
       <div class="detail-panel-body">
         For roughly fifteen years, U.S. electricity demand barely moved — efficiency gains roughly offset population and economic growth. Since 2023, that flat line has bent upward. The obvious suspect is the generative AI buildout: <strong>data centers are projected to grow from 31 GW of demand in 2025 to 66 GW by 2027</strong>. This dashboard tests that story against real public data, not just headlines — using EIA grid data, Nvidia's reported Data Center revenue as a proxy for AI compute buildout, and state-level electricity prices.
+      </div>
+    </details>
+
+    <details class="detail-panel">
+      <summary>What do ERCOT, PJM, MISO, and CISO mean? <span class="chevron">▸</span></summary>
+      <div class="detail-panel-body">
+        <p style="margin-bottom: 0.9rem;">These are <strong>grid operators</strong> — the organizations that manage electricity supply and demand for a specific region of the U.S. EIA reports demand data by grid operator, not by state, so these codes are how the underlying data is organized. Two were picked because of heavy AI data-center buildout, two as comparison regions:</p>
+        <div class="callout-strip">
+          <div class="callout-item">
+            <div class="callout-date" style="color: var(--accent);">ERCOT</div>
+            <div>
+              <div class="callout-text"><strong>Electric Reliability Council of Texas.</strong> Manages the grid for most of Texas. Included because Texas has one of the heaviest concentrations of new AI data-center construction in the country.</div>
+            </div>
+          </div>
+          <div class="callout-item">
+            <div class="callout-date" style="color: var(--accent);">PJM</div>
+            <div>
+              <div class="callout-text"><strong>PJM Interconnection.</strong> Manages the grid across 13 Mid-Atlantic and Midwest states, including Virginia — which has the single highest concentration of data centers in the U.S. (~26% of the state's electricity). This is the "ground zero" region for the AI/grid story.</div>
+            </div>
+          </div>
+          <div class="callout-item">
+            <div class="callout-date" style="color: var(--accent2);">MISO</div>
+            <div>
+              <div class="callout-text"><strong>Midcontinent Independent System Operator.</strong> Manages the grid across 15 central states (Midwest/Great Plains). Included as a <strong>comparison region</strong> — less data-center buildout, showing what "normal" demand growth looks like without the AI effect.</div>
+            </div>
+          </div>
+          <div class="callout-item">
+            <div class="callout-date" style="color: var(--accent2);">CISO</div>
+            <div>
+              <div class="callout-text"><strong>California Independent System Operator.</strong> Manages California's grid. Also a comparison region — California has its own tech-industry presence, but a more mature data-center base and very different energy policy (heavy renewables mandates), so its demand is shaped by different forces.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </details>
 
