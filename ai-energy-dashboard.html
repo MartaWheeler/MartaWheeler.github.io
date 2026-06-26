@@ -19,102 +19,99 @@
     --card: #eeeae0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; }
+  html, body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); font-size: 15px; line-height: 1.55; }
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: var(--paper); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
-  .nav-logo { font-family: 'Inter', sans-serif; font-size: 1.3rem; color: var(--ink); text-decoration: none; }
-  .nav-back { font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 2rem; background: var(--paper); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+  .nav-logo { font-family: 'Inter', sans-serif; font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+  .nav-back { font-family: 'DM Mono', monospace; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 0.4rem; }
   .nav-back:hover { color: var(--accent); }
 
-  /* HERO */
-  .dash-hero { padding: 9rem 3rem 4rem; max-width: 1000px; }
-  .dash-tag { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-  .dash-title { font-family: 'Inter', sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; margin-bottom: 1.5rem; }
+  .dash-shell { padding: 4.5rem 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
+
+  .dash-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; padding: 1.2rem 0 1.4rem; border-bottom: 1px solid var(--border); margin-bottom: 1.4rem; }
+  .dash-header-left { max-width: 640px; }
+  .dash-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .dash-title { font-family: 'Inter', sans-serif; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.15; margin-bottom: 0.5rem; }
   .dash-title em { font-style: italic; color: var(--accent); }
-  .dash-subtitle { font-size: 1.1rem; color: var(--muted); font-weight: 300; max-width: 680px; line-height: 1.7; margin-bottom: 2rem; }
-  .dash-meta { display: flex; gap: 2rem; flex-wrap: wrap; font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); }
-  .dash-meta strong { color: var(--ink); }
+  .dash-subtitle { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.55; }
 
-  /* SECTIONS */
-  section.dash-section { padding: 4rem 3rem; max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); }
-  .section-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-  .section-title { font-family: 'Inter', sans-serif; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; margin-bottom: 1.2rem; max-width: 700px; }
-  .section-desc { color: var(--muted); max-width: 700px; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.7; }
-  .section-desc strong { color: var(--ink); font-weight: 500; }
+  .stat-chips { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .stat-chip { text-align: right; min-width: 110px; }
+  .stat-chip-num { font-family: 'Inter', sans-serif; font-size: 1.3rem; line-height: 1; color: var(--ink); }
+  .stat-chip-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
 
-  /* CHART CARDS */
-  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; margin-bottom: 2rem; }
-  .chart-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-  .chart-card-title { font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 500; }
-  .chart-card-controls { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .toggle-btn { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; border-radius: 3px; transition: all 0.2s; }
+  .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 1.1rem; margin-bottom: 1.5rem; }
+  @media (max-width: 1000px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.1rem 1.3rem 0.9rem; display: flex; flex-direction: column; }
+  .panel-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.7rem; flex-wrap: wrap; }
+  .panel-title-group { flex: 1; min-width: 180px; }
+  .panel-title { font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600; line-height: 1.3; }
+  .panel-subtitle { font-family: 'DM Sans', sans-serif; font-size: 0.74rem; color: var(--muted); margin-top: 0.15rem; }
+  .panel-controls { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .toggle-btn { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.3rem 0.6rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; border-radius: 3px; transition: all 0.2s; white-space: nowrap; }
   .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
   .toggle-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .chart-wrap { position: relative; height: 380px; }
-  .chart-wrap.tall { height: 460px; }
-  .chart-footnote { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 1rem; line-height: 1.6; }
-  .loading-msg { text-align: center; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.8rem; padding: 3rem; }
+  select.toggle-btn { cursor: pointer; }
 
-  /* TWO COL GRID */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  .panel-chart-wrap { position: relative; flex: 1; min-height: 230px; }
+  .panel-footnote { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; opacity: 0.85; }
 
-  /* CALLOUT TIMELINE */
-  .callout-strip { display: flex; flex-direction: column; gap: 0.9rem; }
-  .callout-item { display: flex; gap: 1.2rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-  .callout-date { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent); min-width: 90px; padding-top: 0.1rem; }
-  .callout-text { font-size: 0.92rem; color: var(--ink); }
-  .callout-source { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
+  .detail-panels { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .detail-panel { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .detail-panel summary { list-style: none; cursor: pointer; padding: 1rem 1.4rem; font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
+  .detail-panel summary::-webkit-details-marker { display: none; }
+  .detail-panel summary .chevron { font-family: 'DM Mono', monospace; color: var(--accent); transition: transform 0.2s; font-size: 0.85rem; }
+  .detail-panel[open] summary .chevron { transform: rotate(90deg); }
+  .detail-panel-body { padding: 0 1.4rem 1.4rem; font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  .detail-panel-body strong { color: var(--ink); font-weight: 500; }
+  .detail-panel-body em { color: var(--accent); font-style: normal; }
 
-  /* CAVEAT BOX */
-  .caveat-box { background: var(--ink); color: var(--paper); padding: 2rem 2.2rem; border-radius: 4px; margin-top: 1rem; }
-  .caveat-box .section-label { color: var(--accent); margin-bottom: 0.8rem; }
-  .caveat-box p { color: #cfc9ba; font-size: 0.95rem; line-height: 1.7; }
-  .caveat-box p + p { margin-top: 0.8rem; }
+  .callout-strip { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.8rem; }
+  .callout-item { display: flex; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); }
+  .callout-item:last-child { border-bottom: none; }
+  .callout-date { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); min-width: 80px; padding-top: 0.1rem; }
+  .callout-text { font-size: 0.85rem; color: var(--ink); }
+  .callout-source { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--muted); margin-top: 0.25rem; }
 
-  /* STATS ROW */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
-  @media (max-width: 900px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
-  .stat-box { border-left: 2px solid var(--accent); padding-left: 1.1rem; }
-  .stat-box-num { font-family: 'Inter', sans-serif; font-size: 2rem; line-height: 1; margin-bottom: 0.3rem; }
-  .stat-box-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .caveat-inline { background: var(--ink); color: #cfc9ba; padding: 1.2rem 1.4rem; border-radius: 4px; margin-top: 0.8rem; font-size: 0.88rem; line-height: 1.7; }
+  .caveat-inline p + p { margin-top: 0.7rem; }
+  .caveat-inline strong, .caveat-inline em { color: var(--paper); font-style: normal; font-weight: 500; }
 
-  /* CHAT WIDGET */
-  #ask-data { background: var(--ink); color: var(--paper); padding: 4rem 3rem; }
-  #ask-data .section-label { color: var(--accent); }
-  #ask-data .section-title { color: var(--paper); }
-  #ask-data .section-desc { color: #b8b2a3; }
-  .chat-shell { max-width: 720px; background: var(--chat-bg); border-radius: 6px; overflow: hidden; }
-  .chat-log { height: 380px; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; color: var(--ink); }
-  .chat-msg { max-width: 85%; padding: 0.7rem 1rem; border-radius: 4px; font-size: 0.92rem; line-height: 1.55; }
+  #ask-data { background: var(--ink); border-radius: 6px; padding: 2rem 2rem 1.5rem; margin-bottom: 2rem; }
+  #ask-data .dash-tag { color: var(--accent); }
+  #ask-data .panel-title { color: var(--paper); font-size: 1.1rem; }
+  #ask-data .panel-subtitle { color: #b8b2a3; }
+  .chat-shell { max-width: 760px; background: var(--chat-bg); border-radius: 6px; overflow: hidden; margin-top: 1rem; }
+  .chat-log { height: 320px; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.9rem; color: var(--ink); }
+  .chat-msg { max-width: 85%; padding: 0.65rem 0.95rem; border-radius: 4px; font-size: 0.88rem; line-height: 1.5; }
   .chat-msg.user { align-self: flex-end; background: var(--accent); color: white; }
   .chat-msg.bot { align-self: flex-start; background: var(--card); color: var(--ink); }
-  .chat-msg.bot.typing { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.8rem; }
-  .chat-suggestions-row { display: flex; gap: 0.5rem; padding: 0 1.5rem 1rem; flex-wrap: wrap; }
-  .chat-suggest-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 0.4rem 0.7rem; border: 1px solid var(--border); border-radius: 12px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+  .chat-msg.bot.typing { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.78rem; }
+  .chat-suggestions-row { display: flex; gap: 0.5rem; padding: 0 1.2rem 0.9rem; flex-wrap: wrap; }
+  .chat-suggest-btn { font-family: 'DM Mono', monospace; font-size: 0.64rem; padding: 0.35rem 0.65rem; border: 1px solid var(--border); border-radius: 12px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
   .chat-suggest-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .chat-input-row { display: flex; gap: 0.6rem; padding: 1rem 1.5rem; border-top: 1px solid var(--border); }
-  .chat-input-row input { flex: 1; border: 1px solid var(--border); border-radius: 3px; padding: 0.7rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; background: var(--paper); color: var(--ink); }
+  .chat-input-row { display: flex; gap: 0.5rem; padding: 0.9rem 1.2rem; border-top: 1px solid var(--border); }
+  .chat-input-row input { flex: 1; border: 1px solid var(--border); border-radius: 3px; padding: 0.6rem 0.8rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; background: var(--paper); color: var(--ink); }
   .chat-input-row input:focus { outline: none; border-color: var(--accent); }
-  .chat-send-btn { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.7rem 1.1rem; background: var(--accent); color: white; border: none; border-radius: 3px; cursor: pointer; transition: opacity 0.2s; }
+  .chat-send-btn { font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.6rem 1rem; background: var(--accent); color: white; border: none; border-radius: 3px; cursor: pointer; transition: opacity 0.2s; }
   .chat-send-btn:hover { opacity: 0.85; }
   .chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* SHARE / FOOTER CTA */
-  .dash-footer { padding: 3rem 3rem 4rem; max-width: 1000px; margin: 0 auto; text-align: center; }
-  .dash-footer-links { display: flex; gap: 1.2rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
-  .btn { padding: 0.75rem 1.75rem; font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; transition: all 0.2s; display: inline-block; }
+  .dash-footer { padding: 1.5rem 0 3rem; text-align: center; }
+  .dash-footer p { color: var(--muted); font-size: 0.85rem; max-width: 600px; margin: 0 auto 1.2rem; }
+  .dash-footer-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn { padding: 0.65rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; transition: all 0.2s; display: inline-block; }
   .btn:hover { background: var(--ink); color: var(--paper); }
   .btn-filled { background: var(--accent); border-color: var(--accent); color: white; }
 
-  @media (max-width: 600px) {
-    .dash-hero { padding: 7rem 1.2rem 3rem; }
-    section.dash-section { padding: 3rem 1.2rem; }
-    #ask-data { padding: 3rem 1.2rem; }
-    .stats-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .chart-wrap { height: 300px; }
-    .chart-wrap.tall { height: 340px; }
+  @media (max-width: 700px) {
+    .dash-shell { padding: 4rem 0.9rem 1.5rem; }
+    .dash-header { flex-direction: column; align-items: flex-start; }
+    .stat-chips { width: 100%; justify-content: space-between; }
+    .stat-chip { text-align: left; min-width: 0; }
+    .panel-chart-wrap { min-height: 220px; }
+    #ask-data { padding: 1.5rem 1.2rem 1rem; }
   }
 </style>
 </head>
@@ -125,161 +122,147 @@
   <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
 </nav>
 
-<!-- HERO -->
-<div class="dash-hero">
-  <div class="dash-tag">Data Visualization · Independent Analysis</div>
-  <h1 class="dash-title">AI's Power Bill — <em>how data-center growth is reshaping U.S. electricity</em></h1>
-  <p class="dash-subtitle">After a decade of flat demand, U.S. electricity consumption broke trend right as generative AI infrastructure went into hyperscale buildout. This page walks through real public data — EIA grid data, Nvidia's reported Data Center revenue, and state electricity prices — to ask a simple question with a careful answer: <strong>is AI actually moving the needle on the grid, and if so, where?</strong></p>
-  <div class="dash-meta">
-    <span>Data: <strong>EIA API · Nvidia 10-Q/8-K filings</strong></span>
-    <span>Built with: <strong>Python · JavaScript · Chart.js</strong></span>
-    <span>Updated: <strong id="last-updated-label">—</strong></span>
+<div class="dash-shell">
+
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <div class="dash-tag">Data Visualization · Independent Analysis</div>
+      <h1 class="dash-title">AI's Power Bill — <em>is AI reshaping the U.S. grid?</em></h1>
+      <p class="dash-subtitle">After a decade of flat demand, U.S. electricity consumption broke trend right as generative AI infrastructure went into hyperscale buildout. Four views into real EIA and Nvidia public data, below.</p>
+    </div>
+    <div class="stat-chips" id="hero-stats">
+      <div class="stat-chip"><div class="stat-chip-num">—</div><div class="stat-chip-label">Loading</div></div>
+      <div class="stat-chip"><div class="stat-chip-num">—</div><div class="stat-chip-label">Loading</div></div>
+      <div class="stat-chip"><div class="stat-chip-num">—</div><div class="stat-chip-label">Loading</div></div>
+      <div class="stat-chip"><div class="stat-chip-num">—</div><div class="stat-chip-label">Loading</div></div>
+    </div>
   </div>
-</div>
 
-<!-- SECTION 1: THE QUESTION -->
-<section class="dash-section" id="the-question">
-  <div class="section-label">01 · The Question</div>
-  <h2 class="section-title">Electricity demand was flat for a decade. Then it wasn't.</h2>
-  <p class="section-desc">For roughly fifteen years, U.S. electricity demand barely moved — efficiency gains roughly offset population and economic growth. Since 2023, that flat line has bent upward. The obvious suspect is the generative AI buildout: <strong>data centers are projected to grow from 31 GW of demand in 2025 to 66 GW by 2027</strong>, and that doesn't happen without showing up somewhere in the grid data. This page tests that story against the numbers, not just the headlines.</p>
+  <div class="dashboard-grid">
 
-  <div class="stats-row" id="hero-stats">
-    <div class="stat-box"><div class="stat-box-num">—</div><div class="stat-box-label">Loading...</div></div>
-    <div class="stat-box"><div class="stat-box-num">—</div><div class="stat-box-label">Loading...</div></div>
-    <div class="stat-box"><div class="stat-box-num">—</div><div class="stat-box-label">Loading...</div></div>
-    <div class="stat-box"><div class="stat-box-num">—</div><div class="stat-box-label">Loading...</div></div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">Demand vs. AI Compute Buildout</div>
+          <div class="panel-subtitle">12-mo rolling avg demand vs. Nvidia Data Center revenue</div>
+        </div>
+        <div class="panel-controls">
+          <button class="toggle-btn active" data-range="all">All History</button>
+          <button class="toggle-btn" data-range="recent">2022–Now</button>
+        </div>
+      </div>
+      <div class="panel-chart-wrap"><canvas id="chart-national-trend"></canvas></div>
+      <div class="panel-footnote">EIA Retail Sales API · NVIDIA 8-K filings, Q1 FY23–Q1 FY27</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">Regional Demand Growth</div>
+          <div class="panel-subtitle">ERCOT / PJM (data-center heavy) vs. MISO / CISO</div>
+        </div>
+        <div class="panel-controls">
+          <button class="toggle-btn active" data-metric="growth">YoY %</button>
+          <button class="toggle-btn" data-metric="absolute">Absolute</button>
+        </div>
+      </div>
+      <div class="panel-chart-wrap"><canvas id="chart-regional"></canvas></div>
+      <div class="panel-footnote">EIA Daily Region Data API · ERCO, PJM, MISO, CISO</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">Weekly Demand Pattern</div>
+          <div class="panel-subtitle">% deviation from each region's weekly average</div>
+        </div>
+        <div class="panel-controls">
+          <select id="seasonality-region-select" class="toggle-btn">
+            <option value="ERCO">ERCOT (TX)</option>
+            <option value="PJM">PJM (Mid-Atl.)</option>
+            <option value="MISO">MISO</option>
+            <option value="CISO">CISO (CA)</option>
+          </select>
+        </div>
+      </div>
+      <div class="panel-chart-wrap"><canvas id="chart-seasonality"></canvas></div>
+      <div class="panel-footnote">EIA Daily Region Data API · baseline noise, shown explicitly</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">Retail Price by State</div>
+          <div class="panel-subtitle">Virginia (highest DC concentration) vs. comparison states</div>
+        </div>
+        <div class="panel-controls">
+          <button class="toggle-btn active" data-priceview="indexed">Indexed</button>
+          <button class="toggle-btn" data-priceview="absolute">¢/kWh</button>
+        </div>
+      </div>
+      <div class="panel-chart-wrap"><canvas id="chart-price"></canvas></div>
+      <div class="panel-footnote">EIA Retail Sales API, by state · VA, TX, OH, CA, GA</div>
+    </div>
+
   </div>
-</section>
 
-<!-- SECTION 2: NATIONAL TREND + NVIDIA OVERLAY -->
-<section class="dash-section" id="national-trend">
-  <div class="section-label">02 · The Inflection</div>
-  <h2 class="section-title">Demand growth tracks the AI compute buildout almost exactly</h2>
-  <p class="section-desc">The chart below overlays U.S. electricity demand (12-month rolling average, smoothing out seasonal noise) against Nvidia's quarterly Data Center revenue — the closest clean, public proxy available for "how much AI compute infrastructure is being built right now." <strong>Correlation, not proof</strong> — but the timing lines up closely enough to take seriously.</p>
+  <div class="detail-panels">
 
-  <div class="chart-card">
-    <div class="chart-card-header">
-      <div class="chart-card-title">U.S. Electricity Demand vs. Nvidia Data Center Revenue</div>
-      <div class="chart-card-controls">
-        <button class="toggle-btn active" data-range="all">All History</button>
-        <button class="toggle-btn" data-range="recent">2022–Present</button>
+    <details class="detail-panel">
+      <summary>The question this dashboard is testing <span class="chevron">▸</span></summary>
+      <div class="detail-panel-body">
+        For roughly fifteen years, U.S. electricity demand barely moved — efficiency gains roughly offset population and economic growth. Since 2023, that flat line has bent upward. The obvious suspect is the generative AI buildout: <strong>data centers are projected to grow from 31 GW of demand in 2025 to 66 GW by 2027</strong>. This dashboard tests that story against real public data, not just headlines — using EIA grid data, Nvidia's reported Data Center revenue as a proxy for AI compute buildout, and state-level electricity prices.
+      </div>
+    </details>
+
+    <details class="detail-panel">
+      <summary>Timeline of key events <span class="chevron">▸</span></summary>
+      <div class="detail-panel-body">
+        <div class="callout-strip" id="callout-list"></div>
+      </div>
+    </details>
+
+    <details class="detail-panel">
+      <summary>What this analysis does and doesn't prove <span class="chevron">▸</span></summary>
+      <div class="detail-panel-body">
+        <div class="caveat-inline">
+          <p><strong>This shows a correlated pattern, not isolated causation.</strong> Electricity demand growth since 2023 has several plausible drivers beyond AI data centers — EV adoption, reshoring of manufacturing, extreme weather years, and broader cloud/digitization trends all contribute. Public utility data does not separately tag "AI load" as its own category, so no public dataset can cleanly isolate it.</p>
+          <p>What the data <em>does</em> support: data-center buildout is a documented, material contributor to recent demand growth, and the regions with heaviest data-center concentration show the patterns this analysis would predict if the AI story is real. That's a defensible, evidence-based pattern — not a definitive causal claim.</p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <div id="ask-data">
+    <div class="dash-tag">Ask About This Data</div>
+    <div class="panel-title">Questions about the charts, the data, or the methodology?</div>
+    <div class="panel-subtitle">Scoped to this specific analysis — sources, numbers, and methodology shown above.</div>
+
+    <div class="chat-shell">
+      <div class="chat-log" id="chat-log">
+        <div class="chat-msg bot">Hi! I can answer questions about the data and charts on this page — sources, methodology, specific numbers, or what a pattern might mean. What would you like to know?</div>
+      </div>
+      <div class="chat-suggestions-row">
+        <button class="chat-suggest-btn" data-q="Why did you use Nvidia revenue as a proxy for AI demand?">Why Nvidia as a proxy?</button>
+        <button class="chat-suggest-btn" data-q="Why is ERCOT growing differently than other regions?">Why does ERCOT differ?</button>
+        <button class="chat-suggest-btn" data-q="What are the biggest limitations of this analysis?">Biggest limitations?</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Ask a question about the data..." />
+        <button class="chat-send-btn" id="chat-send">Send</button>
       </div>
     </div>
-    <div class="chart-wrap tall"><canvas id="chart-national-trend"></canvas></div>
-    <div class="chart-footnote" id="footnote-national-trend">Sources: EIA Electricity Retail Sales API (electricity/retail-sales) · NVIDIA Corp quarterly earnings releases (SEC 8-K filings), Q1 FY2023–Q1 FY2027.</div>
   </div>
-</section>
 
-<!-- SECTION 3: REGIONAL DIVERGENCE -->
-<section class="dash-section" id="regional-divergence">
-  <div class="section-label">03 · Where It Shows Up</div>
-  <h2 class="section-title">Not all grids are growing the same way</h2>
-  <p class="section-desc">If AI data centers are really driving the trend, the regions with the heaviest data-center buildout — <strong>ERCOT (Texas)</strong> and <strong>PJM (Mid-Atlantic / Virginia)</strong> — should show steeper demand growth than regions without that concentration, like <strong>MISO</strong> and <strong>CISO (California)</strong>. This is the closest thing to a natural experiment the public data allows.</p>
-
-  <div class="chart-card">
-    <div class="chart-card-header">
-      <div class="chart-card-title">Year-over-Year Demand Growth by Balancing Authority</div>
-      <div class="chart-card-controls">
-        <button class="toggle-btn active" data-metric="growth">YoY % Growth</button>
-        <button class="toggle-btn" data-metric="absolute">Absolute Demand</button>
-      </div>
-    </div>
-    <div class="chart-wrap"><canvas id="chart-regional"></canvas></div>
-    <div class="chart-footnote">Source: EIA Daily Region Data API (electricity/rto/daily-region-data). ERCO = ERCOT (Texas) · PJM = Mid-Atlantic/Virginia · MISO = Midcontinent ISO · CISO = California ISO.</div>
-  </div>
-</section>
-
-<!-- SECTION 4: SEASONALITY -->
-<section class="dash-section" id="seasonality">
-  <div class="section-label">04 · Controlling for Noise</div>
-  <h2 class="section-title">Demand has always had rhythm — the question is whether the trend survives it</h2>
-  <p class="section-desc">Electricity demand is deeply seasonal: daily (AC-driven afternoon peaks), weekly (lower on weekends), and yearly (summer/winter peaks). Before crediting any change to AI, it's worth showing the baseline noise explicitly. The heatmap below shows the typical demand pattern by hour and day of week — this is the "expected" rhythm any trend-break has to rise above.</p>
-
-  <div class="chart-card">
-    <div class="chart-card-header">
-      <div class="chart-card-title">Average Demand by Hour of Day &amp; Day of Week</div>
-      <div class="chart-card-controls">
-        <select id="seasonality-region-select" class="toggle-btn" style="cursor:pointer;">
-          <option value="ERCO">ERCOT (Texas)</option>
-          <option value="PJM">PJM (Mid-Atlantic)</option>
-          <option value="MISO">MISO</option>
-          <option value="CISO">CISO (California)</option>
-        </select>
-      </div>
-    </div>
-    <div class="chart-wrap tall"><canvas id="chart-seasonality"></canvas></div>
-    <div class="chart-footnote">Source: EIA Daily Region Data API. Darker cells = higher relative demand within the selected region's own range.</div>
-  </div>
-</section>
-
-<!-- SECTION 5: PRICE -->
-<section class="dash-section" id="price-pressure">
-  <div class="section-label">05 · The Price Side</div>
-  <h2 class="section-title">Where data centers concentrate, prices feel it first</h2>
-  <p class="section-desc"><strong>Virginia</strong> hosts the heaviest data-center concentration in the country — by some estimates, data centers consume roughly a quarter of the state's electricity. If AI buildout is putting real pressure on the grid, Virginia's retail prices should be diverging from control states without that concentration.</p>
-
-  <div class="chart-card">
-    <div class="chart-card-header">
-      <div class="chart-card-title">Retail Electricity Price by State, Indexed to 2015</div>
-      <div class="chart-card-controls">
-        <button class="toggle-btn active" data-priceview="indexed">Indexed Growth</button>
-        <button class="toggle-btn" data-priceview="absolute">Absolute ¢/kWh</button>
-      </div>
-    </div>
-    <div class="chart-wrap"><canvas id="chart-price"></canvas></div>
-    <div class="chart-footnote">Source: EIA Electricity Retail Sales API, by state. VA = Virginia (highest DC concentration) · TX, OH, CA, GA shown as comparison states.</div>
-  </div>
-</section>
-
-<!-- SECTION 6: TIMELINE / ANNOTATIONS -->
-<section class="dash-section" id="timeline">
-  <div class="section-label">06 · Timeline of Key Events</div>
-  <h2 class="section-title">The dates behind the chart movements</h2>
-  <div class="callout-strip" id="callout-list">
-    <!-- populated by JS -->
-  </div>
-</section>
-
-<!-- SECTION 7: CAVEATS -->
-<section class="dash-section" id="caveats">
-  <div class="section-label">07 · Being Honest About the Limits</div>
-  <h2 class="section-title">What this analysis does and doesn't prove</h2>
-  <div class="caveat-box">
-    <div class="section-label">Read before you cite this anywhere</div>
-    <p><strong>This shows a correlated pattern, not isolated causation.</strong> Electricity demand growth since 2023 has several plausible drivers beyond AI data centers — EV adoption, reshoring of manufacturing, extreme weather years, and broader cloud/digitization trends all contribute. Public utility data does not separately tag "AI load" as its own category, so no public dataset can cleanly isolate it.</p>
-    <p>What the data <em>does</em> support: data-center buildout is a documented, material contributor to recent demand growth (EIA and multiple industry analysts treat it as significant), and the regions with heaviest data-center concentration are showing the patterns this analysis would predict if the AI story is real. That's a defensible, evidence-based pattern — not a definitive causal claim.</p>
-  </div>
-</section>
-
-<!-- SECTION 8: CHAT -->
-<section id="ask-data">
-  <div class="section-label">Ask About This Data</div>
-  <h2 class="section-title">Questions about the charts, the data, or the methodology?</h2>
-  <p class="section-desc">This chatbox is scoped to this specific analysis — the datasets, sources, and findings on this page. Ask about a chart, a number, or how a calculation was done.</p>
-
-  <div class="chat-shell">
-    <div class="chat-log" id="chat-log">
-      <div class="chat-msg bot">Hi! I can answer questions about the data and charts on this page — sources, methodology, specific numbers, or what a pattern might mean. What would you like to know?</div>
-    </div>
-    <div class="chat-suggestions-row">
-      <button class="chat-suggest-btn" data-q="Why did you use Nvidia revenue as a proxy for AI demand?">Why Nvidia as a proxy?</button>
-      <button class="chat-suggest-btn" data-q="Why is ERCOT growing differently than other regions?">Why does ERCOT differ?</button>
-      <button class="chat-suggest-btn" data-q="What are the biggest limitations of this analysis?">Biggest limitations?</button>
-    </div>
-    <div class="chat-input-row">
-      <input type="text" id="chat-input" placeholder="Ask a question about the data..." />
-      <button class="chat-send-btn" id="chat-send">Send</button>
+  <div class="dash-footer">
+    <p>Built independently using public EIA and Nvidia data as a demonstration of end-to-end data analysis and storytelling — from data acquisition through visualization and narrative.</p>
+    <div class="dash-footer-links">
+      <a href="index.html" class="btn">← Back to Portfolio</a>
+      <a href="https://www.linkedin.com/in/martamariawheeler" target="_blank" class="btn btn-filled">Connect on LinkedIn</a>
     </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<div class="dash-footer">
-  <p class="section-desc" style="margin: 0 auto;">Built independently using public EIA and Nvidia data as a demonstration of end-to-end data analysis and storytelling — from data acquisition through visualization and narrative.</p>
-  <div class="dash-footer-links">
-    <a href="index.html" class="btn">← Back to Portfolio</a>
-    <a href="https://www.linkedin.com/in/martamariawheeler" target="_blank" class="btn btn-filled">Connect on LinkedIn</a>
-  </div>
 </div>
 
 <script src="ai-energy-dashboard.js"></script>
