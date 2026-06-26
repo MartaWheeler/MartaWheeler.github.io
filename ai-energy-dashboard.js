@@ -42,14 +42,38 @@ Chart.defaults.color = COLORS.muted;
 Chart.defaults.borderColor = COLORS.border;
 
 // -------------------------------------------------------------------------
-// CSV PARSING (lightweight, no dependency — these are simple flat CSVs)
+// CSV PARSING — quote-aware, handles embedded commas like "PJM Interconnection, LLC"
 // -------------------------------------------------------------------------
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      // handle escaped double-quote ("") inside a quoted field
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
 function parseCSV(text) {
   const lines = text.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
+  const headers = parseCSVLine(lines[0]).map(h => h.trim());
   return lines.slice(1).map(line => {
-    // simple split; our CSVs don't have embedded commas in values
-    const vals = line.split(',');
+    const vals = parseCSVLine(line);
     const row = {};
     headers.forEach((h, i) => { row[h] = vals[i] !== undefined ? vals[i].trim() : ''; });
     return row;
