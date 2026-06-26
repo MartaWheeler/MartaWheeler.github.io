@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', init);
 // CHAT WIDGET — "Ask About This Data"
 // Calls a dedicated Cloudflare Worker scoped to this dashboard's data.
 // =========================================================================
-const CHAT_WORKER_URL = 'https://energy-data-chat.martamariawheeler.workers.dev';
+const CHAT_WORKER_URL = 'https://energy_data_chat.martamariawheeler.workers.dev';
 
 const chatLog = document.getElementById('chat-log');
 const chatInput = document.getElementById('chat-input');
