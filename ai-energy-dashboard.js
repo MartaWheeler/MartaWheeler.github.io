@@ -42,9 +42,17 @@ Chart.defaults.color = COLORS.muted;
 Chart.defaults.borderColor = COLORS.border;
 
 // -------------------------------------------------------------------------
-// CSV PARSING — quote-aware, handles embedded commas like "PJM Interconnection, LLC"
+// CSV PARSING — quote-aware, auto-detects comma vs. tab delimiter
+// (some exported files, e.g. from Excel/Numbers, end up tab-separated
+// despite the .csv extension — this handles either transparently)
 // -------------------------------------------------------------------------
-function parseCSVLine(line) {
+function detectDelimiter(headerLine) {
+  const tabCount = (headerLine.match(/\t/g) || []).length;
+  const commaCount = (headerLine.match(/,/g) || []).length;
+  return tabCount > commaCount ? '\t' : ',';
+}
+
+function parseCSVLine(line, delimiter) {
   const result = [];
   let current = '';
   let inQuotes = false;
@@ -58,7 +66,7 @@ function parseCSVLine(line) {
       } else {
         inQuotes = !inQuotes;
       }
-    } else if (char === ',' && !inQuotes) {
+    } else if (char === delimiter && !inQuotes) {
       result.push(current);
       current = '';
     } else {
@@ -71,9 +79,10 @@ function parseCSVLine(line) {
 
 function parseCSV(text) {
   const lines = text.trim().split('\n');
-  const headers = parseCSVLine(lines[0]).map(h => h.trim());
+  const delimiter = detectDelimiter(lines[0]);
+  const headers = parseCSVLine(lines[0], delimiter).map(h => h.trim());
   return lines.slice(1).map(line => {
-    const vals = parseCSVLine(line);
+    const vals = parseCSVLine(line, delimiter);
     const row = {};
     headers.forEach((h, i) => { row[h] = vals[i] !== undefined ? vals[i].trim() : ''; });
     return row;
@@ -112,6 +121,30 @@ function yoyGrowth(values) {
     if (prior === undefined || prior === null || isNaN(prior) || prior === 0) return null;
     return ((v - prior) / prior) * 100;
   });
+}
+
+function normalizeDateToYearMonth(dateStr) {
+  if (!dateStr) return null;
+  dateStr = dateStr.trim();
+
+  // Format: YYYY-MM-DD or YYYY-MM
+  if (/^\d{4}-\d{1,2}/.test(dateStr)) {
+    const [y, m] = dateStr.split('-');
+    return `${y}-${m.padStart(2, '0')}`;
+  }
+
+  // Format: M/D/YY or M/D/YYYY or MM/DD/YYYY
+  if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(dateStr)) {
+    const [m, d, yRaw] = dateStr.split('/');
+    let y = yRaw;
+    if (y.length === 2) {
+      // 2-digit year: assume 2000s for anything 00-79, 1900s for 80-99 (standard convention)
+      y = (parseInt(y, 10) <= 79 ? '20' : '19') + y;
+    }
+    return `${y}-${m.padStart(2, '0')}`;
+  }
+
+  return null;
 }
 
 function formatMonthLabel(period) {
@@ -266,10 +299,10 @@ function renderNationalTrend(range = 'all') {
   // Build Nvidia series aligned by nearest month
   const nvidiaByMonth = {};
   DATA.nvidia.forEach(r => {
-    const month = r.quarter_end_date.slice(0, 7);
-    nvidiaByMonth[month] = parseFloat(r.datacenter_revenue_billion_usd);
+    const month = normalizeDateToYearMonth(r.quarter_end_date);
+    if (month) nvidiaByMonth[month] = parseFloat(r.datacenter_revenue_billion_usd);
   });
-  const nvidiaSeries = rows.map(r => nvidiaByMonth[r.period] ?? null);
+  const nvidiaSeries = rows.map(r => nvidiaByMonth[normalizeDateToYearMonth(r.period) ?? r.period] ?? null);
 
   const ctx = document.getElementById('chart-national-trend').getContext('2d');
   if (nationalChart) nationalChart.destroy();
