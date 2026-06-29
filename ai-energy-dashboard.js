@@ -624,10 +624,136 @@ function wireToggleGroup(selector, attr, onChange) {
 // -------------------------------------------------------------------------
 // INIT
 // -------------------------------------------------------------------------
+// =========================================================================
+// US MAP — state choropleth (data center capacity) + major facility markers
+// =========================================================================
+
+const STATE_DC_CAPACITY = {
+  TX: { name: 'Texas', gw: 12.8, source: 'MMC Invest US Data Center Census 2026 (existing + pipeline)' },
+  VA: { name: 'Virginia', gw: 2.2, source: 'MMC Invest US Data Center Census 2026; note: Loudoun County alone reports ~6 GW active per other trackers — estimates vary by methodology' },
+  NC: { name: 'North Carolina', gw: 4.2, source: 'MMC Invest US Data Center Census 2026' },
+  AZ: { name: 'Arizona', gw: 2.5, source: 'MMC Invest US Data Center Census 2026' },
+  GA: { name: 'Georgia', gw: 2.1, source: 'MMC Invest US Data Center Census 2026' },
+  OH: { name: 'Ohio', gw: 4.0, source: 'Programs.com Data Center Boom Report 2026' },
+  NV: { name: 'Nevada', gw: 3.8, source: 'Programs.com Data Center Boom Report 2026 (pipeline)' },
+  IL: { name: 'Illinois', gw: 0.94, source: 'Programs.com Data Center Boom Report 2026 — Chicago market' },
+  CA: { name: 'California', gw: 2.72, source: 'CleanView.co California Data Center Tracker, June 2026' },
+};
+
+const MAJOR_FACILITIES = [
+  { name: 'Pecos County Campus', city: 'Pecos County, TX', lat: 31.42, lon: -103.49, gw: 7.65, operator: 'Multiple operators', status: 'Permitted', note: "Largest single gas-generation air permit in the US as of Jan 2026" },
+  { name: 'Galaxy Helios Campus', city: 'Afton, TX', lat: 33.6, lon: -102.0, gw: 1.0, operator: 'Galaxy Digital / CoreWeave', status: 'Under construction', note: 'Former Bitcoin mining site converted to a 1,500-acre AI campus' },
+  { name: 'Data Center Alley', city: 'Loudoun County, VA', lat: 39.08, lon: -77.63, gw: 6.0, operator: 'Multiple operators', status: 'Operating', note: "World's largest data-center concentration; ~6.3 GW more planned" },
+  { name: 'Meta Prometheus', city: 'New Albany, OH', lat: 40.08, lon: -82.81, gw: 1.0, operator: 'Meta', status: 'Under construction', note: "Meta's first gigawatt-scale AI supercluster" },
+  { name: 'Project Domino', city: 'Lebanon, IN', lat: 39.99, lon: -86.46, gw: 1.0, operator: 'Meta', status: 'Under construction', note: "In Boone County's LEAP Research & Innovation District" },
+  { name: 'Amazon Indiana Project', city: 'New Carlisle, IN', lat: 41.7, lon: -86.25, gw: 2.2, operator: 'Amazon', status: 'Under construction', note: 'Expected to save local households $1B over 15 years (NIPSCO)' },
+  { name: 'Meta Hyperion', city: 'Richland Parish, LA', lat: 32.5, lon: -91.8, gw: 5.0, operator: 'Meta', status: 'Under construction', note: 'Footprint nearly the size of Manhattan; 3 on-site gas plants' },
+  { name: 'xAI Macrohardrr', city: 'Southaven, MS', lat: 34.95, lon: -90.03, gw: 2.0, operator: 'xAI', status: 'Under construction', note: "Part of xAI's broader Mississippi AI computing platform" },
+  { name: 'Cumberland County Campus', city: 'Cumberland County, PA', lat: 40.2, lon: -77.2, gw: 1.35, operator: 'Undisclosed', status: 'Under construction', note: 'Site work began April 2026' },
+  { name: 'Maricopa County Cluster', city: 'Phoenix, AZ', lat: 33.45, lon: -112.07, gw: 1.3, operator: 'Multiple operators', status: 'Mixed', note: 'Diversified across multiple operators' },
+  { name: 'Dallas County Cluster', city: 'Dallas, TX', lat: 32.78, lon: -96.8, gw: 1.3, operator: 'Multiple operators', status: 'Mixed', note: 'Diversified across multiple operators' },
+  { name: 'Clay County Campus', city: 'Kansas City, MO', lat: 39.2, lon: -94.4, gw: 1.2, operator: 'Undisclosed', status: 'Under construction', note: 'Hyperscale capacity under construction' },
+  { name: 'Vantage Frontier Campus', city: 'Texas', lat: 30.3, lon: -97.7, gw: 1.6, operator: 'Vantage Data Centers', status: 'Under construction', note: 'Up to 3.5 GW long-term expansion potential' },
+  { name: 'Santa Clara Data Center CA1', city: 'Santa Clara, CA', lat: 37.35, lon: -121.95, gw: 0.077, operator: 'Vantage Data Centers', status: 'Operating', note: "California's largest operating facility per CleanView tracker" },
+];
+
+function capacityColor(gw) {
+  if (gw === undefined || gw === null) return '#e8e4d8';
+  if (gw < 1) return '#f0ddc8';
+  if (gw < 3) return '#e0a878';
+  if (gw < 8) return '#c8531a';
+  return '#8a3812';
+}
+
+let usMapInstance = null;
+
+async function renderUSMap() {
+  const mapEl = document.getElementById('us-map');
+  if (!mapEl || usMapInstance) return;
+
+  usMapInstance = L.map('us-map', {
+    center: [38.5, -96],
+    zoom: 4,
+    minZoom: 3,
+    maxZoom: 6,
+    scrollWheelZoom: false,
+    attributionControl: false,
+  });
+
+  let statesGeoJSON;
+  try {
+    const topoResp = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json');
+    const topoData = await topoResp.json();
+    statesGeoJSON = topojson.feature(topoData, topoData.objects.states);
+  } catch (err) {
+    console.error('Failed to load US states map data:', err);
+    mapEl.innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; color:#7a7568; font-family:DM Mono, monospace; font-size:0.8rem;">Map data unavailable — check connection</div>';
+    return;
+  }
+
+  const FIPS_TO_STATE = {
+    '01':'AL','02':'AK','04':'AZ','05':'AR','06':'CA','08':'CO','09':'CT','10':'DE','11':'DC','12':'FL',
+    '13':'GA','15':'HI','16':'ID','17':'IL','18':'IN','19':'IA','20':'KS','21':'KY','22':'LA','23':'ME',
+    '24':'MD','25':'MA','26':'MI','27':'MN','28':'MS','29':'MO','30':'MT','31':'NE','32':'NV','33':'NH',
+    '34':'NJ','35':'NM','36':'NY','37':'NC','38':'ND','39':'OH','40':'OK','41':'OR','42':'PA','44':'RI',
+    '45':'SC','46':'SD','47':'TN','48':'TX','49':'UT','50':'VT','51':'VA','53':'WA','54':'WV','55':'WI','56':'WY',
+  };
+
+  L.geoJSON(statesGeoJSON, {
+    style: (feature) => {
+      const postal = FIPS_TO_STATE[feature.id];
+      const entry = STATE_DC_CAPACITY[postal];
+      return {
+        fillColor: entry ? capacityColor(entry.gw) : '#e8e4d8',
+        weight: 1,
+        color: '#d8d3c8',
+        fillOpacity: 0.9,
+      };
+    },
+    onEachFeature: (feature, layer) => {
+      const postal = FIPS_TO_STATE[feature.id];
+      const entry = STATE_DC_CAPACITY[postal];
+      if (entry) {
+        layer.bindTooltip(
+          `<div class="state-tooltip"><strong>${entry.name}</strong><br/>${entry.gw} GW data-center capacity<br/><span style="color:#7a7568;font-size:0.7rem;">${entry.source}</span></div>`,
+          { sticky: true }
+        );
+        layer.on('mouseover', () => layer.setStyle({ fillOpacity: 1, weight: 2 }));
+        layer.on('mouseout', () => layer.setStyle({ fillOpacity: 0.9, weight: 1 }));
+      } else {
+        const stateName = feature.properties?.name || postal || '';
+        layer.bindTooltip(`<div class="state-tooltip">${stateName}<br/><span style="color:#7a7568;font-size:0.7rem;">No major data-center capacity tracked</span></div>`);
+      }
+    },
+  }).addTo(usMapInstance);
+
+  MAJOR_FACILITIES.forEach(f => {
+    const radius = Math.max(5, Math.sqrt(f.gw) * 7);
+    const marker = L.circleMarker([f.lat, f.lon], {
+      radius,
+      fillColor: '#1a6bc8',
+      color: '#ffffff',
+      weight: 1.5,
+      fillOpacity: 0.85,
+    }).addTo(usMapInstance);
+
+    marker.bindTooltip(`
+      <div class="facility-tooltip">
+        <strong>${f.name}</strong><br/>
+        ${f.city}<br/>
+        ${f.gw} GW · ${f.operator}<br/>
+        <em style="color:#1a6bc8;">${f.status}</em><br/>
+        <span style="color:#7a7568; font-size:0.74rem;">${f.note}</span>
+      </div>
+    `, { sticky: true });
+  });
+}
+
 async function init() {
   await loadAllData();
 
   renderHeroStats();
+  renderUSMap();
   renderNationalTrend('all');
   renderRegional('growth');
   renderSeasonality('ERCO');
