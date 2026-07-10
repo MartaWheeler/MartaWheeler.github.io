@@ -59,12 +59,12 @@
  .brand small{display:block; font-family:'Nunito',sans-serif; font-weight:600; opacity:0.75; font-size:12px; margin-top:2px;}
  .backBtn{
  background:rgba(255,255,255,0.14); color:#fff; border:none; border-radius:14px;
- padding:9px 14px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px;
+ padding:9px 16px; font-weight:700; font-size:20px; cursor:pointer; display:flex; align-items:center; gap:6px; line-height:1;
  }
  .backBtn:hover{background:rgba(255,255,255,0.22);}
  .progressBtn{
  background:var(--sun); color:#3a2a00; border:none; border-radius:14px;
- padding:9px 14px; font-weight:800; font-size:14px; cursor:pointer;
+ padding:9px 16px; font-weight:800; font-size:20px; cursor:pointer; line-height:1;
  box-shadow: 0 4px 0 var(--sun-dark);
  }
  .progressBtn:active{transform:translateY(2px); box-shadow:0 2px 0 var(--sun-dark);}
@@ -103,7 +103,7 @@
  }
  .pill{
  border:2px solid var(--rule); background:#fff; color:var(--text);
- padding:8px 16px; border-radius:999px; font-weight:800; font-size:13.5px; cursor:pointer;
+ padding:8px 16px; border-radius:999px; font-weight:800; font-size:16px; cursor:pointer;
  }
  .pill[aria-pressed="true"]{border-color:var(--accent, var(--sky)); background:var(--accent, var(--sky)); color:#fff;}
 
@@ -167,7 +167,7 @@
  .modeToggleRow{display:flex; justify-content:center; margin-bottom:18px;}
  .segmented{display:inline-flex; background:#f1efe6; border-radius:999px; padding:4px;}
  .segmented button{
- border:none; background:transparent; padding:8px 18px; border-radius:999px; font-weight:800; font-size:13.5px; cursor:pointer; color:var(--text-soft);
+ border:none; background:transparent; padding:8px 20px; border-radius:999px; font-weight:800; font-size:19px; cursor:pointer; color:var(--text-soft);
  }
  .segmented button[aria-pressed="true"]{background:var(--text); color:#fff;}
 
@@ -210,15 +210,15 @@
 <div class="topbar">
  <div class="topbar-row">
  <div class="brand">
- <span class="brand-emoji"> </span>
+ <span class="brand-emoji">✏️</span>
  <div>
  <h1>Scribble School</h1>
  <small id="screenSubtitle">Pick something to practice</small>
  </div>
  </div>
  <div style="display:flex; gap:8px;">
- <button class="backBtn" id="homeBtn" hidden>← Home</button>
- <button class="progressBtn" id="progressBtn"> My Progress</button>
+ <button class="backBtn" id="homeBtn" hidden aria-label="Home">🏠</button>
+ <button class="progressBtn" id="progressBtn" aria-label="My Progress">🏆</button>
  </div>
  </div>
  <div class="chalk-underline" id="underlineWrap">
@@ -231,24 +231,24 @@
  <!-- HOME -->
  <section class="screen active" id="screen-home">
  <div class="hero">
- <h2>Let's write, spell, and count! </h2>
+ <h2>Let's write, spell, and count! ✏️🔤🔢</h2>
  <p>Choose a game to start practicing.</p>
  </div>
  <div class="cardGrid">
  <button class="modeCard hw" data-open="handwriting">
- <span class="icon"> </span>
+ <span class="icon">✍️</span>
  <h3>Handwriting</h3>
- <p>Practice writing small letters, capital letters, and digits — then get instant feedback.</p>
+ <p>abc → ABC → 123 ✅</p>
  </button>
  <button class="modeCard miss" data-open="missing">
- <span class="icon"> </span>
+ <span class="icon">🧩</span>
  <h3>Missing Pieces</h3>
- <p>Fill in a missing letter in a word, or a missing sign in an equation — write it or choose it.</p>
+ <p>c_t 🐱 · 2 ➕ ▢ = 5</p>
  </button>
  <button class="modeCard math" data-open="math">
- <span class="icon"> </span>
+ <span class="icon">🔢</span>
  <h3>Math Time</h3>
- <p>Add, subtract, and compare numbers. Write your answer or tap it on the number pad.</p>
+ <p>➕ ➖ &lt; = &gt;</p>
  </button>
  </div>
  </section>
@@ -256,14 +256,14 @@
  <!-- HANDWRITING -->
  <section class="screen" id="screen-handwriting" style="--accent:var(--sun-dark);">
  <div class="subnav" id="hwSubnav">
- <button class="pill" data-hw="lower" aria-pressed="true">Small letters</button>
- <button class="pill" data-hw="upper" aria-pressed="false">Capital letters</button>
- <button class="pill" data-hw="digit" aria-pressed="false">Digits</button>
+ <button class="pill" data-hw="lower" aria-pressed="true">🔡 abc</button>
+ <button class="pill" data-hw="upper" aria-pressed="false">🔠 ABC</button>
+ <button class="pill" data-hw="digit" aria-pressed="false">🔢 123</button>
  </div>
  <div class="panel">
  <div class="promptRow">
- <span class="promptLabel">Write this:</span>
- <span class="scoreTag" id="hwScoreTag">0 / 0 correct</span>
+ <span class="promptLabel">✍️ Write this:</span>
+ <span class="scoreTag" id="hwScoreTag">0 / 0 ⭐</span>
  </div>
  <div class="targetGlyph" id="hwTarget">a</div>
  <div class="boardWrap">
@@ -271,10 +271,10 @@
  <canvas id="hwDrawCanvas" width="300" height="300"></canvas>
  </div>
  <div class="boardControls">
- <button class="btn btn-ghost" id="hwGuideToggle" aria-pressed="false">Show guide</button>
- <button class="btn btn-ghost" id="hwClearBtn">Clear</button>
- <button class="btn btn-primary" id="hwCheckBtn">Check ✓</button>
- <button class="btn btn-ghost" id="hwNextBtn">New letter →</button>
+ <button class="btn btn-ghost" id="hwGuideToggle" aria-pressed="false">👁️ Guide</button>
+ <button class="btn btn-ghost" id="hwClearBtn">🧹 Clear</button>
+ <button class="btn btn-primary" id="hwCheckBtn">✅ Check</button>
+ <button class="btn btn-ghost" id="hwNextBtn">🔄 New</button>
  </div>
  <div class="feedback" id="hwFeedback"></div>
  </div>
@@ -283,21 +283,21 @@
  <!-- MISSING PIECES -->
  <section class="screen" id="screen-missing" style="--accent:var(--coral-dark);">
  <div class="subnav" id="missSubnav">
- <button class="pill" data-miss="lowerword" aria-pressed="true">Small letters in words</button>
- <button class="pill" data-miss="upperword" aria-pressed="false">Capital letters in words</button>
- <button class="pill" data-miss="equation" aria-pressed="false">Signs in equations</button>
+ <button class="pill" data-miss="lowerword" aria-pressed="true">🔡 c_t</button>
+ <button class="pill" data-miss="upperword" aria-pressed="false">🔠 C_T</button>
+ <button class="pill" data-miss="equation" aria-pressed="false">➕➖ 2▢2</button>
  </div>
  <div class="panel">
  <div class="promptRow">
- <span class="promptLabel">Fill in the blank</span>
- <span class="scoreTag" id="missScoreTag">0 / 0 correct</span>
+ <span class="promptLabel">🧩 Fill in the blank</span>
+ <span class="scoreTag" id="missScoreTag">0 / 0 ⭐</span>
  </div>
  <div class="exerciseText" id="missExerciseText">dom_k</div>
 
  <div class="modeToggleRow">
  <div class="segmented">
- <button data-missAnswerMode="write" aria-pressed="true">Write it</button>
- <button data-missAnswerMode="choose" aria-pressed="false">Choose it</button>
+ <button data-missAnswerMode="write" aria-pressed="true">✍️</button>
+ <button data-missAnswerMode="choose" aria-pressed="false">👉</button>
  </div>
  </div>
 
@@ -307,9 +307,9 @@
  <canvas id="missDrawCanvas" width="300" height="300"></canvas>
  </div>
  <div class="boardControls">
- <button class="btn btn-ghost" id="missGuideToggle" aria-pressed="false">Show guide</button>
- <button class="btn btn-ghost" id="missClearBtn">Clear</button>
- <button class="btn btn-primary" id="missCheckBtn">Check ✓</button>
+ <button class="btn btn-ghost" id="missGuideToggle" aria-pressed="false">👁️ Guide</button>
+ <button class="btn btn-ghost" id="missClearBtn">🧹 Clear</button>
+ <button class="btn btn-primary" id="missCheckBtn">✅ Check</button>
  </div>
  </div>
 
@@ -318,7 +318,7 @@
  </div>
 
  <div class="boardControls">
- <button class="btn btn-ghost" id="missNextBtn">New one →</button>
+ <button class="btn btn-ghost" id="missNextBtn">🔄 New</button>
  </div>
  <div class="feedback" id="missFeedback"></div>
  </div>
@@ -327,14 +327,14 @@
  <!-- MATH -->
  <section class="screen" id="screen-math" style="--accent:var(--sky-dark);">
  <div class="subnav" id="mathSubnav">
- <button class="pill" data-math="add" aria-pressed="true">Addition</button>
- <button class="pill" data-math="sub" aria-pressed="false">Subtraction</button>
- <button class="pill" data-math="compare" aria-pressed="false">Compare</button>
+ <button class="pill" data-math="add" aria-pressed="true">➕</button>
+ <button class="pill" data-math="sub" aria-pressed="false">➖</button>
+ <button class="pill" data-math="compare" aria-pressed="false">⚖️</button>
  </div>
  <div class="panel">
  <div class="promptRow">
- <span class="promptLabel">Solve it</span>
- <span class="scoreTag" id="mathScoreTag">0 / 0 correct</span>
+ <span class="promptLabel">🔢 Solve it</span>
+ <span class="scoreTag" id="mathScoreTag">0 / 0 ⭐</span>
  </div>
  <div class="exerciseText" id="mathExerciseText">7 + 2 =</div>
 
@@ -349,8 +349,8 @@
  <div id="mathAnswerArea">
  <div class="modeToggleRow">
  <div class="segmented">
- <button data-mathAnswerMode="write" aria-pressed="true">Write it</button>
- <button data-mathAnswerMode="type" aria-pressed="false">Number pad</button>
+ <button data-mathAnswerMode="write" aria-pressed="true">✍️</button>
+ <button data-mathAnswerMode="type" aria-pressed="false">🔢</button>
  </div>
  </div>
 
@@ -359,8 +359,8 @@
  <canvas id="mathDrawCanvas" width="300" height="300"></canvas>
  </div>
  <div class="boardControls">
- <button class="btn btn-ghost" id="mathClearBtn">Clear</button>
- <button class="btn btn-primary" id="mathCheckBtn">Check ✓</button>
+ <button class="btn btn-ghost" id="mathClearBtn">🧹 Clear</button>
+ <button class="btn btn-primary" id="mathCheckBtn">✅ Check</button>
  </div>
  </div>
 
@@ -368,14 +368,14 @@
  <div class="typedAnswer" id="mathTypedAnswer">&nbsp;</div>
  <div class="keypad" id="mathKeypad"></div>
  <div class="boardControls">
- <button class="btn btn-ghost" id="mathTypedClearBtn">Clear</button>
- <button class="btn btn-primary" id="mathTypedCheckBtn">Check ✓</button>
+ <button class="btn btn-ghost" id="mathTypedClearBtn">🧹 Clear</button>
+ <button class="btn btn-primary" id="mathTypedCheckBtn">✅ Check</button>
  </div>
  </div>
  </div>
 
  <div class="boardControls">
- <button class="btn btn-ghost" id="mathNextBtn">New problem →</button>
+ <button class="btn btn-ghost" id="mathNextBtn">🔄 New</button>
  </div>
  <div class="feedback" id="mathFeedback"></div>
  </div>
@@ -383,14 +383,14 @@
 
 </main>
 
-<footer>Built for practicing letters, words, and numbers · works on tablet, phone, and computer</footer>
+<footer>✏️ Built for practicing letters, words, and numbers · works on tablet, phone, and computer</footer>
 
 <div class="overlay" id="progressOverlay">
  <div class="modalCard">
- <h2> My Progress</h2>
- <div class="statRow"><span> Handwriting</span><span class="pct" id="statHw">0%</span></div>
- <div class="statRow"><span> Missing Pieces</span><span class="pct" id="statMiss">0%</span></div>
- <div class="statRow"><span> Math Time</span><span class="pct" id="statMath">0%</span></div>
+ <h2>🏆 My Progress</h2>
+ <div class="statRow"><span>✍️ Handwriting</span><span class="pct" id="statHw">0%</span></div>
+ <div class="statRow"><span>🧩 Missing Pieces</span><span class="pct" id="statMiss">0%</span></div>
+ <div class="statRow"><span>🔢 Math Time</span><span class="pct" id="statMath">0%</span></div>
  <div class="statRow"><strong>Overall</strong><span class="pct" id="statOverall">0%</span></div>
  <button class="modalClose" id="progressCloseBtn">Keep practicing</button>
  </div>
@@ -515,13 +515,15 @@
  }catch(e){ usedML=false; }
  }
 
- let ok;
+ let ok, close;
  if(usedML){
- ok = (mlDigit === parseInt(targetChar,10)) || score >= 0.42;
+ ok = (mlDigit === parseInt(targetChar,10)) || score >= 0.58;
+ close = !ok && score >= 0.40;
  } else {
- ok = score >= 0.30;
+ ok = score >= 0.50;
+ close = !ok && score >= 0.35;
  }
- return { ok, empty:false, score, usedML, mlDigit };
+ return { ok, close, empty:false, score, usedML, mlDigit };
  }
 
  /* ============== drawing canvas wiring ============== */
@@ -592,9 +594,9 @@
  }
  function pct(s){ return s.total===0 ? 0 : Math.round((s.correct/s.total)*100); }
  function updateScoreTags(){
- document.getElementById('hwScoreTag').textContent = `${stats.handwriting.correct} / ${stats.handwriting.total} correct`;
- document.getElementById('missScoreTag').textContent = `${stats.missing.correct} / ${stats.missing.total} correct`;
- document.getElementById('mathScoreTag').textContent = `${stats.math.correct} / ${stats.math.total} correct`;
+ document.getElementById('hwScoreTag').textContent = `${stats.handwriting.correct} / ${stats.handwriting.total} ⭐`;
+ document.getElementById('missScoreTag').textContent = `${stats.missing.correct} / ${stats.missing.total} ⭐`;
+ document.getElementById('mathScoreTag').textContent = `${stats.math.correct} / ${stats.math.total} ⭐`;
  }
 
  function showFeedback(el, ok, msg){
@@ -641,13 +643,15 @@
  document.getElementById('hwNextBtn').addEventListener('click', hwNewItem);
  document.getElementById('hwCheckBtn').addEventListener('click', ()=>{
  const result = checkDrawing(hwCurrent, hwDrawCanvas);
- if(result.empty){ showFeedback(hwFeedbackEl, false, "Draw the letter first! "); return; }
+ if(result.empty){ showFeedback(hwFeedbackEl, false, "✍️ Draw the letter first!"); return; }
  recordAttempt('handwriting', result.ok);
  updateScoreTags();
  if(result.ok){
- showFeedback(hwFeedbackEl, true, "Great job! That looks right! ");
+ showFeedback(hwFeedbackEl, true, "🎉 Great job! That looks right!");
+ } else if(result.close){
+ showFeedback(hwFeedbackEl, false, "🤔 So close! Tap 👁️ Guide and trace it once more.");
  } else {
- showFeedback(hwFeedbackEl, false, "Nice try — tap \"Show guide\" and trace over it once more.");
+ showFeedback(hwFeedbackEl, false, "💪 Let's try again — tap 👁️ Guide for help.");
  }
  });
 
@@ -729,7 +733,7 @@
  recordAttempt('missing', ok);
  updateScoreTags();
  b.classList.add(ok ? 'correctFlash' : 'wrongFlash');
- showFeedback(missFeedbackEl, ok, ok ? "Yes! That's it! " : `Not quite — the answer was "${missTarget}".`);
+ showFeedback(missFeedbackEl, ok, ok ? "🎉 Yes! That's it!" : `❌ Not quite — the answer was "${missTarget}".`);
  });
  missChoiceRow.appendChild(b);
  });
@@ -762,10 +766,16 @@
  document.getElementById('missNextBtn').addEventListener('click', missNewItem);
  document.getElementById('missCheckBtn').addEventListener('click', ()=>{
  const result = checkDrawing(missTarget, missDrawCanvas);
- if(result.empty){ showFeedback(missFeedbackEl, false, "Write your answer in the box first!"); return; }
+ if(result.empty){ showFeedback(missFeedbackEl, false, "✍️ Write your answer in the box first!"); return; }
  recordAttempt('missing', result.ok);
  updateScoreTags();
- showFeedback(missFeedbackEl, result.ok, result.ok ? "Yes! Well written! " : `Good try — the answer was "${missTarget}". Want to trace it?`);
+ if(result.ok){
+ showFeedback(missFeedbackEl, true, "🎉 Yes! Well written!");
+ } else if(result.close){
+ showFeedback(missFeedbackEl, false, `🤔 So close! The answer was "${missTarget}" — want to trace it?`);
+ } else {
+ showFeedback(missFeedbackEl, false, `💪 Good try — the answer was "${missTarget}". Want to trace it?`);
+ }
  });
 
  /* ============================================================
@@ -856,17 +866,23 @@
  document.getElementById('mathNextBtn').addEventListener('click', mathNewItem);
  document.getElementById('mathCheckBtn').addEventListener('click', ()=>{
  const result = checkDrawing(String(mathAnswer), mathDrawCanvas);
- if(result.empty){ showFeedback(mathFeedbackEl, false, "Write your answer in the box first!"); return; }
+ if(result.empty){ showFeedback(mathFeedbackEl, false, "✍️ Write your answer in the box first!"); return; }
  recordAttempt('math', result.ok);
  updateScoreTags();
- showFeedback(mathFeedbackEl, result.ok, result.ok ? "Correct! " : `Good try — the answer was ${mathAnswer}.`);
+ if(result.ok){
+ showFeedback(mathFeedbackEl, true, "🎉 Correct!");
+ } else if(result.close){
+ showFeedback(mathFeedbackEl, false, `🤔 So close! The answer was ${mathAnswer}.`);
+ } else {
+ showFeedback(mathFeedbackEl, false, `💪 Good try — the answer was ${mathAnswer}.`);
+ }
  });
  document.getElementById('mathTypedCheckBtn').addEventListener('click', ()=>{
- if(mathTyped===''){ showFeedback(mathFeedbackEl, false, "Tap a number first!"); return; }
+ if(mathTyped===''){ showFeedback(mathFeedbackEl, false, "👆 Tap a number first!"); return; }
  const ok = parseInt(mathTyped,10) === mathAnswer;
  recordAttempt('math', ok);
  updateScoreTags();
- showFeedback(mathFeedbackEl, ok, ok ? "Correct! " : `Not quite — the answer was ${mathAnswer}.`);
+ showFeedback(mathFeedbackEl, ok, ok ? "🎉 Correct!" : `❌ Not quite — the answer was ${mathAnswer}.`);
  });
  document.querySelectorAll('.choiceBtn[data-cmp]').forEach(btn=>{
  btn.addEventListener('click', ()=>{
@@ -874,7 +890,7 @@
  recordAttempt('math', ok);
  updateScoreTags();
  btn.classList.add(ok ? 'correctFlash' : 'wrongFlash');
- showFeedback(mathFeedbackEl, ok, ok ? "Correct! " : `Not quite — the answer was "${mathAnswer}".`);
+ showFeedback(mathFeedbackEl, ok, ok ? "🎉 Correct!" : `❌ Not quite — the answer was "${mathAnswer}".`);
  });
  });
 
@@ -889,9 +905,9 @@
  };
  const subtitles = {
  home: 'Pick something to practice',
- handwriting: 'Handwriting practice',
- missing: 'Missing Pieces',
- math: 'Math Time'
+ handwriting: '✍️ Handwriting practice',
+ missing: '🧩 Missing Pieces',
+ math: '🔢 Math Time'
  };
  const homeBtn = document.getElementById('homeBtn');
 
