@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Scribble School — Letters, Words &amp; Numbers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --ink:#1B4332;
+ --ink-2:#163a29;
+ --paper:#FFFBF2;
+ --rule:#E7E0CC;
+ --sun:#FFC145;
+ --sun-dark:#e0a824;
+ --coral:#FF6B6A;
+ --coral-dark:#e5504f;
+ --sky:#4EA8DE;
+ --sky-dark:#2f8ec4;
+ --text:#26313A;
+ --text-soft:#5b6672;
+ --good:#2F9E44;
+ --good-bg:#e6f7ea;
+ --warn:#E8590C;
+ --warn-bg:#fff1e6;
+ --shadow: 0 6px 0 rgba(0,0,0,0.12);
+ --radius: 22px;
+ }
+ *{box-sizing:border-box;}
+ html,body{margin:0;padding:0;}
+ body{
+ font-family:'Nunito', sans-serif;
+ background:var(--paper);
+ color:var(--text);
+ min-height:100vh;
+ -webkit-tap-highlight-color: transparent;
+ }
+ h1,h2,h3,.display{font-family:'Baloo 2', sans-serif;}
+ button{font-family:inherit;}
+ :focus-visible{outline:3px solid var(--sky); outline-offset:2px;}
+
+ /* ---------- header ---------- */
+ .topbar{
+ background:
+ radial-gradient(circle at 8% 20%, rgba(255,255,255,0.05) 0 2px, transparent 3px) 0 0/28px 28px,
+ linear-gradient(180deg, var(--ink), var(--ink-2));
+ color:#fff;
+ padding:18px 20px 26px;
+ position:relative;
+ }
+ .topbar-row{
+ display:flex; align-items:center; justify-content:space-between; gap:12px;
+ max-width:920px; margin:0 auto;
+ }
+ .brand{display:flex; align-items:center; gap:10px;}
+ .brand-emoji{font-size:28px;}
+ .brand h1{font-size:22px; margin:0; letter-spacing:0.2px;}
+ .brand small{display:block; font-family:'Nunito',sans-serif; font-weight:600; opacity:0.75; font-size:12px; margin-top:2px;}
+ .backBtn{
+ background:rgba(255,255,255,0.14); color:#fff; border:none; border-radius:14px;
+ padding:9px 14px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px;
+ }
+ .backBtn:hover{background:rgba(255,255,255,0.22);}
+ .progressBtn{
+ background:var(--sun); color:#3a2a00; border:none; border-radius:14px;
+ padding:9px 14px; font-weight:800; font-size:14px; cursor:pointer;
+ box-shadow: 0 4px 0 var(--sun-dark);
+ }
+ .progressBtn:active{transform:translateY(2px); box-shadow:0 2px 0 var(--sun-dark);}
+ .chalk-underline{
+ max-width:920px; margin:10px auto 0; padding:0 20px;
+ }
+ .chalk-underline svg{width:180px; height:10px; opacity:0.55;}
+
+ main{max-width:920px; margin:0 auto; padding:22px 18px 80px;}
+
+ /* ---------- home ---------- */
+ .hero{text-align:center; margin:10px 0 26px;}
+ .hero h2{font-size:26px; margin:0 0 8px; color:var(--text);}
+ .hero p{color:var(--text-soft); font-size:15px; margin:0; font-weight:600;}
+
+ .cardGrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
+ .modeCard{
+ border:none; border-radius:var(--radius); padding:22px 18px; text-align:left; cursor:pointer;
+ color:#fff; position:relative; overflow:hidden; font-family:inherit;
+ box-shadow: var(--shadow);
+ transition:transform .12s ease;
+ }
+ .modeCard:active{transform:translateY(4px); box-shadow:none;}
+ .modeCard .icon{font-size:34px; display:block; margin-bottom:10px;}
+ .modeCard h3{margin:0 0 6px; font-size:19px;}
+ .modeCard p{margin:0; font-size:13.5px; opacity:0.92; font-weight:600; line-height:1.4;}
+ .modeCard.hw{background:linear-gradient(135deg, var(--sun), var(--sun-dark)); color:#3a2a00;}
+ .modeCard.miss{background:linear-gradient(135deg, var(--coral), var(--coral-dark));}
+ .modeCard.math{background:linear-gradient(135deg, var(--sky), var(--sky-dark));}
+
+ /* ---------- generic section chrome ---------- */
+ .screen{display:none;}
+ .screen.active{display:block;}
+ .subnav{
+ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;
+ }
+ .pill{
+ border:2px solid var(--rule); background:#fff; color:var(--text);
+ padding:8px 16px; border-radius:999px; font-weight:800; font-size:13.5px; cursor:pointer;
+ }
+ .pill[aria-pressed="true"]{border-color:var(--accent, var(--sky)); background:var(--accent, var(--sky)); color:#fff;}
+
+ .panel{
+ background:#fff; border-radius:var(--radius); padding:22px; box-shadow:0 2px 0 var(--rule), 0 1px 12px rgba(0,0,0,0.04);
+ }
+
+ .promptRow{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:14px;}
+ .promptLabel{font-weight:800; color:var(--text-soft); font-size:13.5px; text-transform:uppercase; letter-spacing:0.4px;}
+ .scoreTag{font-weight:800; font-size:13px; color:var(--text-soft);}
+
+ .targetGlyph{
+ font-family:'Baloo 2', sans-serif; font-weight:700; text-align:center;
+ font-size:70px; color:var(--text); margin:6px 0 18px; line-height:1;
+ }
+
+ .boardWrap{
+ position:relative; width:min(300px,80vw); aspect-ratio:1/1; margin:0 auto;
+ background:
+ radial-gradient(circle at 15% 25%, rgba(255,255,255,0.04) 0 2px, transparent 3px) 0 0/24px 24px,
+ linear-gradient(180deg, var(--ink), var(--ink-2));
+ border-radius:18px; box-shadow:var(--shadow); touch-action:none;
+ }
+ .boardWrap canvas{position:absolute; inset:0; width:100%; height:100%; touch-action:none;}
+ #guideCanvas{pointer-events:none; opacity:0.28;}
+
+ .boardControls{display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap;}
+ .btn{
+ border:none; border-radius:14px; padding:11px 18px; font-weight:800; font-size:14.5px; cursor:pointer;
+ }
+ .btn:active{transform:translateY(2px);}
+ .btn-primary{background:var(--sky); color:#fff; box-shadow:0 4px 0 var(--sky-dark);}
+ .btn-primary:active{box-shadow:0 2px 0 var(--sky-dark);}
+ .btn-ghost{background:#f1efe6; color:var(--text); box-shadow:0 4px 0 var(--rule);}
+ .btn-ghost:active{box-shadow:0 2px 0 var(--rule);}
+ .btn-ghost[aria-pressed="true"]{background:var(--text); color:#fff; box-shadow:0 4px 0 #000;}
+
+ .feedback{
+ margin-top:16px; border-radius:14px; padding:12px 16px; font-weight:800; text-align:center;
+ display:none; font-size:15px;
+ }
+ .feedback.show{display:block;}
+ .feedback.good{background:var(--good-bg); color:var(--good);}
+ .feedback.warn{background:var(--warn-bg); color:var(--warn);}
+
+ .exerciseText{
+ font-family:'Baloo 2', sans-serif; font-size:44px; text-align:center; margin:8px 0 20px; letter-spacing:1px;
+ }
+ .blankSlot{border-bottom:5px solid var(--text-soft); padding:0 6px;}
+
+ .choiceRow{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:6px;}
+ .choiceBtn{
+ min-width:56px; font-family:'Baloo 2',sans-serif; font-size:24px; font-weight:700;
+ border:none; border-radius:14px; padding:12px 16px; cursor:pointer; background:#f1efe6; color:var(--text);
+ box-shadow:0 4px 0 var(--rule);
+ }
+ .choiceBtn:active{transform:translateY(2px); box-shadow:0 2px 0 var(--rule);}
+ .choiceBtn.correctFlash{background:var(--good-bg); color:var(--good);}
+ .choiceBtn.wrongFlash{background:var(--warn-bg); color:var(--warn);}
+
+ .modeToggleRow{display:flex; justify-content:center; margin-bottom:18px;}
+ .segmented{display:inline-flex; background:#f1efe6; border-radius:999px; padding:4px;}
+ .segmented button{
+ border:none; background:transparent; padding:8px 18px; border-radius:999px; font-weight:800; font-size:13.5px; cursor:pointer; color:var(--text-soft);
+ }
+ .segmented button[aria-pressed="true"]{background:var(--text); color:#fff;}
+
+ .keypad{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; max-width:340px; margin:14px auto 0;}
+ .keypad button{
+ font-family:'Baloo 2',sans-serif; font-size:20px; font-weight:700; border:none; border-radius:12px;
+ padding:12px 0; background:#f1efe6; color:var(--text); cursor:pointer; box-shadow:0 4px 0 var(--rule);
+ }
+ .keypad button:active{transform:translateY(2px); box-shadow:0 2px 0 var(--rule);}
+ .typedAnswer{
+ text-align:center; font-family:'Baloo 2',sans-serif; font-size:38px; min-height:52px; margin-bottom:6px; color:var(--text);
+ }
+
+ /* ---------- modal ---------- */
+ .overlay{
+ position:fixed; inset:0; background:rgba(20,25,20,0.5); display:none; align-items:center; justify-content:center; padding:20px; z-index:50;
+ }
+ .overlay.show{display:flex;}
+ .modalCard{
+ background:#fff; border-radius:20px; padding:26px; max-width:420px; width:100%; box-shadow:0 20px 50px rgba(0,0,0,0.25);
+ }
+ .modalCard h2{margin:0 0 14px; font-size:22px;}
+ .statRow{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--rule); font-weight:700;}
+ .statRow:last-of-type{border-bottom:none;}
+ .statRow .pct{font-family:'Baloo 2',sans-serif; font-size:18px;}
+ .modalClose{
+ margin-top:16px; width:100%; border:none; border-radius:14px; padding:12px; font-weight:800; font-size:15px;
+ background:var(--ink); color:#fff; cursor:pointer;
+ }
+
+ @media (prefers-reduced-motion: reduce){
+ *{animation:none !important; transition:none !important;}
+ }
+
+ footer{text-align:center; color:var(--text-soft); font-size:12px; padding:20px; font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+ <div class="topbar-row">
+ <div class="brand">
+ <span class="brand-emoji"> </span>
+ <div>
+ <h1>Scribble School</h1>
+ <small id="screenSubtitle">Pick something to practice</small>
+ </div>
+ </div>
+ <div style="display:flex; gap:8px;">
+ <button class="backBtn" id="homeBtn" hidden>← Home</button>
+ <button class="progressBtn" id="progressBtn"> My Progress</button>
+ </div>
+ </div>
+ <div class="chalk-underline" id="underlineWrap">
+ <svg viewBox="0 0 180 10"><path d="M2 6 Q 20 2, 40 6 T 78 6 T 116 6 T 154 6 T 178 5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+ </div>
+</div>
+
+<main>
+
+ <!-- HOME -->
+ <section class="screen active" id="screen-home">
+ <div class="hero">
+ <h2>Let's write, spell, and count! </h2>
+ <p>Choose a game to start practicing.</p>
+ </div>
+ <div class="cardGrid">
+ <button class="modeCard hw" data-open="handwriting">
+ <span class="icon"> </span>
+ <h3>Handwriting</h3>
+ <p>Practice writing small letters, capital letters, and digits — then get instant feedback.</p>
+ </button>
+ <button class="modeCard miss" data-open="missing">
+ <span class="icon"> </span>
+ <h3>Missing Pieces</h3>
+ <p>Fill in a missing letter in a word, or a missing sign in an equation — write it or choose it.</p>
+ </button>
+ <button class="modeCard math" data-open="math">
+ <span class="icon"> </span>
+ <h3>Math Time</h3>
+ <p>Add, subtract, and compare numbers. Write your answer or tap it on the number pad.</p>
+ </button>
+ </div>
+ </section>
+
+ <!-- HANDWRITING -->
+ <section class="screen" id="screen-handwriting" style="--accent:var(--sun-dark);">
+ <div class="subnav" id="hwSubnav">
+ <button class="pill" data-hw="lower" aria-pressed="true">Small letters</button>
+ <button class="pill" data-hw="upper" aria-pressed="false">Capital letters</button>
+ <button class="pill" data-hw="digit" aria-pressed="false">Digits</button>
+ </div>
+ <div class="panel">
+ <div class="promptRow">
+ <span class="promptLabel">Write this:</span>
+ <span class="scoreTag" id="hwScoreTag">0 / 0 correct</span>
+ </div>
+ <div class="targetGlyph" id="hwTarget">a</div>
+ <div class="boardWrap">
+ <canvas id="hwGuideCanvas" width="300" height="300"></canvas>
+ <canvas id="hwDrawCanvas" width="300" height="300"></canvas>
+ </div>
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="hwGuideToggle" aria-pressed="false">Show guide</button>
+ <button class="btn btn-ghost" id="hwClearBtn">Clear</button>
+ <button class="btn btn-primary" id="hwCheckBtn">Check ✓</button>
+ <button class="btn btn-ghost" id="hwNextBtn">New letter →</button>
+ </div>
+ <div class="feedback" id="hwFeedback"></div>
+ </div>
+ </section>
+
+ <!-- MISSING PIECES -->
+ <section class="screen" id="screen-missing" style="--accent:var(--coral-dark);">
+ <div class="subnav" id="missSubnav">
+ <button class="pill" data-miss="lowerword" aria-pressed="true">Small letters in words</button>
+ <button class="pill" data-miss="upperword" aria-pressed="false">Capital letters in words</button>
+ <button class="pill" data-miss="equation" aria-pressed="false">Signs in equations</button>
+ </div>
+ <div class="panel">
+ <div class="promptRow">
+ <span class="promptLabel">Fill in the blank</span>
+ <span class="scoreTag" id="missScoreTag">0 / 0 correct</span>
+ </div>
+ <div class="exerciseText" id="missExerciseText">dom_k</div>
+
+ <div class="modeToggleRow">
+ <div class="segmented">
+ <button data-missAnswerMode="write" aria-pressed="true">Write it</button>
+ <button data-missAnswerMode="choose" aria-pressed="false">Choose it</button>
+ </div>
+ </div>
+
+ <div id="missWriteArea">
+ <div class="boardWrap">
+ <canvas id="missGuideCanvas" width="300" height="300"></canvas>
+ <canvas id="missDrawCanvas" width="300" height="300"></canvas>
+ </div>
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="missGuideToggle" aria-pressed="false">Show guide</button>
+ <button class="btn btn-ghost" id="missClearBtn">Clear</button>
+ <button class="btn btn-primary" id="missCheckBtn">Check ✓</button>
+ </div>
+ </div>
+
+ <div id="missChooseArea" style="display:none;">
+ <div class="choiceRow" id="missChoiceRow"></div>
+ </div>
+
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="missNextBtn">New one →</button>
+ </div>
+ <div class="feedback" id="missFeedback"></div>
+ </div>
+ </section>
+
+ <!-- MATH -->
+ <section class="screen" id="screen-math" style="--accent:var(--sky-dark);">
+ <div class="subnav" id="mathSubnav">
+ <button class="pill" data-math="add" aria-pressed="true">Addition</button>
+ <button class="pill" data-math="sub" aria-pressed="false">Subtraction</button>
+ <button class="pill" data-math="compare" aria-pressed="false">Compare</button>
+ </div>
+ <div class="panel">
+ <div class="promptRow">
+ <span class="promptLabel">Solve it</span>
+ <span class="scoreTag" id="mathScoreTag">0 / 0 correct</span>
+ </div>
+ <div class="exerciseText" id="mathExerciseText">7 + 2 =</div>
+
+ <div id="mathCompareArea" style="display:none;">
+ <div class="choiceRow">
+ <button class="choiceBtn" data-cmp="&lt;">&lt;</button>
+ <button class="choiceBtn" data-cmp="=">=</button>
+ <button class="choiceBtn" data-cmp="&gt;">&gt;</button>
+ </div>
+ </div>
+
+ <div id="mathAnswerArea">
+ <div class="modeToggleRow">
+ <div class="segmented">
+ <button data-mathAnswerMode="write" aria-pressed="true">Write it</button>
+ <button data-mathAnswerMode="type" aria-pressed="false">Number pad</button>
+ </div>
+ </div>
+
+ <div id="mathWriteArea">
+ <div class="boardWrap">
+ <canvas id="mathDrawCanvas" width="300" height="300"></canvas>
+ </div>
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="mathClearBtn">Clear</button>
+ <button class="btn btn-primary" id="mathCheckBtn">Check ✓</button>
+ </div>
+ </div>
+
+ <div id="mathTypeArea" style="display:none;">
+ <div class="typedAnswer" id="mathTypedAnswer">&nbsp;</div>
+ <div class="keypad" id="mathKeypad"></div>
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="mathTypedClearBtn">Clear</button>
+ <button class="btn btn-primary" id="mathTypedCheckBtn">Check ✓</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="boardControls">
+ <button class="btn btn-ghost" id="mathNextBtn">New problem →</button>
+ </div>
+ <div class="feedback" id="mathFeedback"></div>
+ </div>
+ </section>
+
+</main>
+
+<footer>Built for practicing letters, words, and numbers · works on tablet, phone, and computer</footer>
+
+<div class="overlay" id="progressOverlay">
+ <div class="modalCard">
+ <h2> My Progress</h2>
+ <div class="statRow"><span> Handwriting</span><span class="pct" id="statHw">0%</span></div>
+ <div class="statRow"><span> Missing Pieces</span><span class="pct" id="statMiss">0%</span></div>
+ <div class="statRow"><span> Math Time</span><span class="pct" id="statMath">0%</span></div>
+ <div class="statRow"><strong>Overall</strong><span class="pct" id="statOverall">0%</span></div>
+ <button class="modalClose" id="progressCloseBtn">Keep practicing</button>
+ </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.20.0/tf.min.js"></script>
+<script>
+(function(){
+ "use strict";
+
+ /* ============== small utilities ============== */
+ function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+ function pick(arr){ return arr[randInt(0,arr.length-1)]; }
+ function shuffle(arr){
+ const a=arr.slice();
+ for(let i=a.length-1;i>0;i--){ const j=randInt(0,i); [a[i],a[j]]=[a[j],a[i]]; }
+ return a;
+ }
+
+ /* ============== recognition engine (shared by all modules) ==============
+ Both a user's drawing and a rendered reference glyph are converted to a
+ normalized, bounding-box-cropped binary grid, then compared with a Dice
+ coefficient. Digits additionally get a second opinion from a small
+ pretrained MNIST network when it's available; if that model can't be
+ loaded (offline, blocked, etc.) everything still works via shape matching. */
+
+ function getNormalizedGrid(canvas, outSize){
+ const R = canvas.width;
+ const ctx = canvas.getContext('2d');
+ const img = ctx.getImageData(0,0,R,R).data;
+ const ink = new Uint8Array(R*R);
+ let minX=R,minY=R,maxX=-1,maxY=-1;
+ for(let y=0;y<R;y++){
+ for(let x=0;x<R;x++){
+ const idx = y*R+x;
+ const a = img[idx*4+3];
+ const isInk = a > 50;
+ ink[idx] = isInk ? 1 : 0;
+ if(isInk){
+ if(x<minX)minX=x; if(x>maxX)maxX=x;
+ if(y<minY)minY=y; if(y>maxY)maxY=y;
+ }
+ }
+ }
+ if(maxX < 0) return { grid:new Uint8Array(outSize*outSize), empty:true };
+
+ const w = maxX-minX+1, h = maxY-minY+1;
+ const side = Math.max(w,h);
+ const cropSize = side * 1.35;
+ const cx = minX + w/2, cy = minY + h/2;
+ const out = new Uint8Array(outSize*outSize);
+ const scale = cropSize/outSize;
+ for(let oy=0; oy<outSize; oy++){
+ for(let ox=0; ox<outSize; ox++){
+ const sx = Math.round(cx - cropSize/2 + ox*scale);
+ const sy = Math.round(cy - cropSize/2 + oy*scale);
+ if(sx>=0 && sx<R && sy>=0 && sy<R){
+ out[oy*outSize+ox] = ink[sy*R+sx];
+ }
+ }
+ }
+ return { grid:out, empty:false };
+ }
+
+ function diceScore(a,b){
+ let inter=0, sa=0, sb=0;
+ for(let i=0;i<a.length;i++){
+ if(a[i] && b[i]) inter++;
+ if(a[i]) sa++;
+ if(b[i]) sb++;
+ }
+ if(sa===0 || sb===0) return 0;
+ return (2*inter)/(sa+sb);
+ }
+
+ function makeGlyphCanvas(ch, R){
+ const c = document.createElement('canvas');
+ c.width = R; c.height = R;
+ const ctx = c.getContext('2d');
+ ctx.clearRect(0,0,R,R);
+ ctx.fillStyle = '#000';
+ ctx.textAlign = 'center';
+ ctx.textBaseline = 'middle';
+ ctx.font = `${Math.floor(R*0.72)}px "Comic Sans MS", "Nunito", sans-serif`;
+ ctx.fillText(ch, R/2, R/2 + R*0.02);
+ return c;
+ }
+
+ let tfReady = false;
+ let mnistModel = null;
+ (function loadModel(){
+ try{
+ if(typeof tf === 'undefined') return;
+ tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_v1/model.json')
+ .then(m=>{ mnistModel=m; tfReady=true; })
+ .catch(()=>{ tfReady=false; });
+ }catch(e){ tfReady=false; }
+ })();
+
+ function checkDrawing(targetChar, canvas){
+ const { grid:userGrid, empty } = getNormalizedGrid(canvas, 32);
+ if(empty){
+ return { ok:false, empty:true, score:0 };
+ }
+ const tmplCanvas = makeGlyphCanvas(targetChar, canvas.width);
+ const { grid:tmplGrid } = getNormalizedGrid(tmplCanvas, 32);
+ const score = diceScore(userGrid, tmplGrid);
+
+ const isDigit = /^[0-9]$/.test(targetChar);
+ let usedML = false, mlDigit = null;
+ if(isDigit && tfReady && mnistModel){
+ try{
+ const { grid:mnistGrid } = getNormalizedGrid(canvas, 28);
+ const arr = Array.from(mnistGrid).map(v=>v?1:0);
+ const input = tf.tensor(arr, [1,28,28,1]).toFloat();
+ const pred = mnistModel.predict(input);
+ const data = pred.dataSync();
+ let best=0; for(let i=1;i<data.length;i++){ if(data[i]>data[best]) best=i; }
+ mlDigit = best;
+ usedML = true;
+ input.dispose(); pred.dispose();
+ }catch(e){ usedML=false; }
+ }
+
+ let ok;
+ if(usedML){
+ ok = (mlDigit === parseInt(targetChar,10)) || score >= 0.42;
+ } else {
+ ok = score >= 0.30;
+ }
+ return { ok, empty:false, score, usedML, mlDigit };
+ }
+
+ /* ============== drawing canvas wiring ============== */
+ function wireCanvas(canvas){
+ const ctx = canvas.getContext('2d');
+ ctx.lineWidth = 16;
+ ctx.lineCap = 'round';
+ ctx.lineJoin = 'round';
+ ctx.strokeStyle = '#FFF6DE';
+ let drawing = false, lastX=0, lastY=0;
+
+ function pos(e){
+ const rect = canvas.getBoundingClientRect();
+ const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+ const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+ return {
+ x: (clientX - rect.left) * (canvas.width/rect.width),
+ y: (clientY - rect.top) * (canvas.height/rect.height)
+ };
+ }
+ function start(e){
+ e.preventDefault();
+ drawing = true;
+ const p = pos(e); lastX=p.x; lastY=p.y;
+ ctx.beginPath(); ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle=ctx.strokeStyle; ctx.fill();
+ }
+ function move(e){
+ if(!drawing) return;
+ e.preventDefault();
+ const p = pos(e);
+ ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y); ctx.stroke();
+ lastX=p.x; lastY=p.y;
+ }
+ function end(e){ drawing=false; }
+
+ canvas.addEventListener('pointerdown', start);
+ canvas.addEventListener('pointermove', move);
+ window.addEventListener('pointerup', end);
+ canvas.addEventListener('touchstart', start, {passive:false});
+ canvas.addEventListener('touchmove', move, {passive:false});
+ canvas.addEventListener('touchend', end);
+
+ return {
+ clear(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+ };
+ }
+
+ function drawGuide(canvas, ch, visible){
+ const ctx = canvas.getContext('2d');
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ if(!visible) return;
+ ctx.fillStyle = '#FFFFFF';
+ ctx.textAlign = 'center';
+ ctx.textBaseline = 'middle';
+ ctx.font = `${Math.floor(canvas.width*0.72)}px "Comic Sans MS", "Nunito", sans-serif`;
+ ctx.fillText(ch, canvas.width/2, canvas.height/2 + canvas.width*0.02);
+ }
+
+ /* ============== progress tracking ============== */
+ const stats = {
+ handwriting:{correct:0,total:0},
+ missing:{correct:0,total:0},
+ math:{correct:0,total:0}
+ };
+ function recordAttempt(moduleKey, ok){
+ stats[moduleKey].total++;
+ if(ok) stats[moduleKey].correct++;
+ }
+ function pct(s){ return s.total===0 ? 0 : Math.round((s.correct/s.total)*100); }
+ function updateScoreTags(){
+ document.getElementById('hwScoreTag').textContent = `${stats.handwriting.correct} / ${stats.handwriting.total} correct`;
+ document.getElementById('missScoreTag').textContent = `${stats.missing.correct} / ${stats.missing.total} correct`;
+ document.getElementById('mathScoreTag').textContent = `${stats.math.correct} / ${stats.math.total} correct`;
+ }
+
+ function showFeedback(el, ok, msg){
+ el.textContent = msg;
+ el.className = 'feedback show ' + (ok ? 'good' : 'warn');
+ }
+
+ /* ============================================================
+ HANDWRITING MODULE
+ ============================================================ */
+ const hwDrawCanvas = document.getElementById('hwDrawCanvas');
+ const hwGuideCanvas = document.getElementById('hwGuideCanvas');
+ const hwTargetEl = document.getElementById('hwTarget');
+ const hwFeedbackEl = document.getElementById('hwFeedback');
+ const hwBoard = wireCanvas(hwDrawCanvas);
+ let hwGuideOn = false;
+ let hwSubmode = 'lower';
+ let hwCurrent = 'a';
+
+ const LOWER = 'abcdefghijklmnopqrstuvwxyz'.split('');
+ const UPPER = LOWER.map(c=>c.toUpperCase());
+ const DIGITS = '0123456789'.split('');
+
+ function hwNewItem(){
+ const pool = hwSubmode==='lower' ? LOWER : hwSubmode==='upper' ? UPPER : DIGITS;
+ hwCurrent = pick(pool);
+ hwTargetEl.textContent = hwCurrent;
+ hwBoard.clear();
+ drawGuide(hwGuideCanvas, hwCurrent, hwGuideOn);
+ hwFeedbackEl.className = 'feedback';
+ }
+ document.getElementById('hwSubnav').addEventListener('click', (e)=>{
+ const btn = e.target.closest('[data-hw]'); if(!btn) return;
+ document.querySelectorAll('#hwSubnav .pill').forEach(b=>b.setAttribute('aria-pressed', b===btn));
+ hwSubmode = btn.dataset.hw;
+ hwNewItem();
+ });
+ document.getElementById('hwGuideToggle').addEventListener('click', (e)=>{
+ hwGuideOn = !hwGuideOn;
+ e.target.setAttribute('aria-pressed', hwGuideOn);
+ drawGuide(hwGuideCanvas, hwCurrent, hwGuideOn);
+ });
+ document.getElementById('hwClearBtn').addEventListener('click', ()=> hwBoard.clear());
+ document.getElementById('hwNextBtn').addEventListener('click', hwNewItem);
+ document.getElementById('hwCheckBtn').addEventListener('click', ()=>{
+ const result = checkDrawing(hwCurrent, hwDrawCanvas);
+ if(result.empty){ showFeedback(hwFeedbackEl, false, "Draw the letter first! "); return; }
+ recordAttempt('handwriting', result.ok);
+ updateScoreTags();
+ if(result.ok){
+ showFeedback(hwFeedbackEl, true, "Great job! That looks right! ");
+ } else {
+ showFeedback(hwFeedbackEl, false, "Nice try — tap \"Show guide\" and trace over it once more.");
+ }
+ });
+
+ /* ============================================================
+ MISSING PIECES MODULE
+ ============================================================ */
+ const WORDS = ["apple","house","tiger","lemon","candy","garden","pencil","rocket",
+ "forest","turtle","dragon","cookie","planet","guitar","basket",
+ "window","yellow","monkey","spider","castle"];
+ const SIGN_POOL = ['+','-','*','/'];
+ const CMP_POOL = ['<','>','='];
+
+ const missDrawCanvas = document.getElementById('missDrawCanvas');
+ const missGuideCanvas = document.getElementById('missGuideCanvas');
+ const missExerciseEl = document.getElementById('missExerciseText');
+ const missFeedbackEl = document.getElementById('missFeedback');
+ const missChoiceRow = document.getElementById('missChoiceRow');
+ const missBoard = wireCanvas(missDrawCanvas);
+
+ let missSubmode = 'lowerword';
+ let missAnswerMode = 'write';
+ let missGuideOn = false;
+ let missTarget = '';
+ let missDisplayBefore = '', missDisplayAfter = '';
+
+ function missNewItem(){
+ missFeedbackEl.className = 'feedback';
+ missBoard.clear();
+ missChoiceRow.innerHTML = '';
+ document.querySelectorAll('.choiceBtn').forEach(b=>b.classList.remove('correctFlash','wrongFlash'));
+
+ if(missSubmode === 'lowerword' || missSubmode === 'upperword'){
+ let word = pick(WORDS);
+ if(missSubmode === 'upperword') word = word.toUpperCase();
+ const idx = randInt(1, word.length-2);
+ missTarget = word[idx];
+ missDisplayBefore = word.slice(0,idx);
+ missDisplayAfter = word.slice(idx+1);
+ missExerciseEl.innerHTML = `${missDisplayBefore}<span class="blankSlot">&nbsp;&nbsp;</span>${missDisplayAfter}`;
+ buildChoices(missTarget, missSubmode==='upperword' ? UPPER : LOWER);
+ } else {
+ // equations: half the time fill an operator, half a comparison sign
+ if(Math.random() < 0.5){
+ const op = pick(['+','-']);
+ let a = randInt(1,9), b = randInt(1,9);
+ if(op==='-' && b>a){ const t=a; a=b; b=t; }
+ const c = op==='+' ? a+b : a-b;
+ missTarget = op;
+ missExerciseEl.innerHTML = `${a} <span class="blankSlot">&nbsp;&nbsp;</span> ${b} = ${c}`;
+ buildChoices(op, SIGN_POOL);
+ } else {
+ const a=randInt(1,9), b=randInt(1,9), c=randInt(1,9), d=randInt(1,9);
+ const left=a+b, right=c+d;
+ const sign = left<right ? '<' : left>right ? '>' : '=';
+ missTarget = sign;
+ missExerciseEl.innerHTML = `${a} + ${b} <span class="blankSlot">&nbsp;&nbsp;</span> ${c} + ${d}`;
+ buildChoices(sign, CMP_POOL);
+ }
+ }
+ drawGuide(missGuideCanvas, missTarget, missGuideOn);
+ updateMissAnswerAreaVisibility();
+ }
+
+ function buildChoices(correct, basePool){
+ let choices;
+ if(basePool.includes(correct) && basePool.length <= 4){
+ choices = shuffle(basePool);
+ } else {
+ const distractors = shuffle(basePool.filter(c=>c!==correct)).slice(0,3);
+ choices = shuffle([correct, ...distractors]);
+ }
+ missChoiceRow.innerHTML = '';
+ choices.forEach(ch=>{
+ const b = document.createElement('button');
+ b.className = 'choiceBtn';
+ b.textContent = ch;
+ b.addEventListener('click', ()=>{
+ const ok = ch === missTarget;
+ recordAttempt('missing', ok);
+ updateScoreTags();
+ b.classList.add(ok ? 'correctFlash' : 'wrongFlash');
+ showFeedback(missFeedbackEl, ok, ok ? "Yes! That's it! " : `Not quite — the answer was "${missTarget}".`);
+ });
+ missChoiceRow.appendChild(b);
+ });
+ }
+
+ function updateMissAnswerAreaVisibility(){
+ document.getElementById('missWriteArea').style.display = missAnswerMode==='write' ? 'block' : 'none';
+ document.getElementById('missChooseArea').style.display = missAnswerMode==='choose' ? 'block' : 'none';
+ }
+
+ document.getElementById('missSubnav').addEventListener('click', (e)=>{
+ const btn = e.target.closest('[data-miss]'); if(!btn) return;
+ document.querySelectorAll('#missSubnav .pill').forEach(b=>b.setAttribute('aria-pressed', b===btn));
+ missSubmode = btn.dataset.miss;
+ missNewItem();
+ });
+ document.querySelectorAll('[data-missAnswerMode]').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+ document.querySelectorAll('[data-missAnswerMode]').forEach(b=>b.setAttribute('aria-pressed', b===btn));
+ missAnswerMode = btn.dataset.missanswermode || btn.getAttribute('data-missAnswerMode');
+ updateMissAnswerAreaVisibility();
+ });
+ });
+ document.getElementById('missGuideToggle').addEventListener('click', (e)=>{
+ missGuideOn = !missGuideOn;
+ e.target.setAttribute('aria-pressed', missGuideOn);
+ drawGuide(missGuideCanvas, missTarget, missGuideOn);
+ });
+ document.getElementById('missClearBtn').addEventListener('click', ()=> missBoard.clear());
+ document.getElementById('missNextBtn').addEventListener('click', missNewItem);
+ document.getElementById('missCheckBtn').addEventListener('click', ()=>{
+ const result = checkDrawing(missTarget, missDrawCanvas);
+ if(result.empty){ showFeedback(missFeedbackEl, false, "Write your answer in the box first!"); return; }
+ recordAttempt('missing', result.ok);
+ updateScoreTags();
+ showFeedback(missFeedbackEl, result.ok, result.ok ? "Yes! Well written! " : `Good try — the answer was "${missTarget}". Want to trace it?`);
+ });
+
+ /* ============================================================
+ MATH MODULE
+ ============================================================ */
+ const mathDrawCanvas = document.getElementById('mathDrawCanvas');
+ const mathExerciseEl = document.getElementById('mathExerciseText');
+ const mathFeedbackEl = document.getElementById('mathFeedback');
+ const mathBoard = wireCanvas(mathDrawCanvas);
+ const mathTypedAnswerEl = document.getElementById('mathTypedAnswer');
+ const mathKeypadEl = document.getElementById('mathKeypad');
+
+ let mathSubmode = 'add';
+ let mathAnswerMode = 'write';
+ let mathAnswer = 0;
+ let mathTyped = '';
+
+ function mathNewItem(){
+ mathFeedbackEl.className = 'feedback';
+ mathBoard.clear();
+ mathTyped = '';
+ mathTypedAnswerEl.textContent = '\u00A0';
+ document.querySelectorAll('.choiceBtn[data-cmp]').forEach(b=>b.classList.remove('correctFlash','wrongFlash'));
+
+ const compareArea = document.getElementById('mathCompareArea');
+ const answerArea = document.getElementById('mathAnswerArea');
+
+ if(mathSubmode === 'compare'){
+ compareArea.style.display = 'block';
+ answerArea.style.display = 'none';
+ const a=randInt(1,9), b=randInt(1,9), c=randInt(1,9), d=randInt(1,9);
+ const left = a+b, right = c+d;
+ mathAnswer = left<right ? '<' : left>right ? '>' : '=';
+ mathExerciseEl.textContent = `${a} + ${b} ? ${c} + ${d}`;
+ } else {
+ compareArea.style.display = 'none';
+ answerArea.style.display = 'block';
+ let a,b;
+ if(mathSubmode === 'add'){
+ a = randInt(0,9); b = randInt(0, 9-a);
+ mathAnswer = a+b;
+ mathExerciseEl.textContent = `${a} + ${b} =`;
+ } else {
+ a = randInt(0,9); b = randInt(0,a);
+ mathAnswer = a-b;
+ mathExerciseEl.textContent = `${a} - ${b} =`;
+ }
+ updateMathAnswerAreaVisibility();
+ }
+ }
+
+ function updateMathAnswerAreaVisibility(){
+ document.getElementById('mathWriteArea').style.display = mathAnswerMode==='write' ? 'block' : 'none';
+ document.getElementById('mathTypeArea').style.display = mathAnswerMode==='type' ? 'block' : 'none';
+ }
+
+ function buildKeypad(){
+ mathKeypadEl.innerHTML = '';
+ for(let i=0;i<=9;i++){
+ const b = document.createElement('button');
+ b.textContent = i;
+ b.addEventListener('click', ()=>{
+ mathTyped = String(i);
+ mathTypedAnswerEl.textContent = mathTyped;
+ });
+ mathKeypadEl.appendChild(b);
+ }
+ }
+ buildKeypad();
+
+ document.getElementById('mathSubnav').addEventListener('click', (e)=>{
+ const btn = e.target.closest('[data-math]'); if(!btn) return;
+ document.querySelectorAll('#mathSubnav .pill').forEach(b=>b.setAttribute('aria-pressed', b===btn));
+ mathSubmode = btn.dataset.math;
+ mathNewItem();
+ });
+ document.querySelectorAll('[data-mathAnswerMode]').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+ document.querySelectorAll('[data-mathAnswerMode]').forEach(b=>b.setAttribute('aria-pressed', b===btn));
+ mathAnswerMode = btn.dataset.mathanswermode || btn.getAttribute('data-mathAnswerMode');
+ updateMathAnswerAreaVisibility();
+ });
+ });
+ document.getElementById('mathClearBtn').addEventListener('click', ()=> mathBoard.clear());
+ document.getElementById('mathTypedClearBtn').addEventListener('click', ()=>{
+ mathTyped=''; mathTypedAnswerEl.textContent='\u00A0';
+ });
+ document.getElementById('mathNextBtn').addEventListener('click', mathNewItem);
+ document.getElementById('mathCheckBtn').addEventListener('click', ()=>{
+ const result = checkDrawing(String(mathAnswer), mathDrawCanvas);
+ if(result.empty){ showFeedback(mathFeedbackEl, false, "Write your answer in the box first!"); return; }
+ recordAttempt('math', result.ok);
+ updateScoreTags();
+ showFeedback(mathFeedbackEl, result.ok, result.ok ? "Correct! " : `Good try — the answer was ${mathAnswer}.`);
+ });
+ document.getElementById('mathTypedCheckBtn').addEventListener('click', ()=>{
+ if(mathTyped===''){ showFeedback(mathFeedbackEl, false, "Tap a number first!"); return; }
+ const ok = parseInt(mathTyped,10) === mathAnswer;
+ recordAttempt('math', ok);
+ updateScoreTags();
+ showFeedback(mathFeedbackEl, ok, ok ? "Correct! " : `Not quite — the answer was ${mathAnswer}.`);
+ });
+ document.querySelectorAll('.choiceBtn[data-cmp]').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+ const ok = btn.dataset.cmp === mathAnswer;
+ recordAttempt('math', ok);
+ updateScoreTags();
+ btn.classList.add(ok ? 'correctFlash' : 'wrongFlash');
+ showFeedback(mathFeedbackEl, ok, ok ? "Correct! " : `Not quite — the answer was "${mathAnswer}".`);
+ });
+ });
+
+ /* ============================================================
+ NAVIGATION
+ ============================================================ */
+ const screens = {
+ home: document.getElementById('screen-home'),
+ handwriting: document.getElementById('screen-handwriting'),
+ missing: document.getElementById('screen-missing'),
+ math: document.getElementById('screen-math')
+ };
+ const subtitles = {
+ home: 'Pick something to practice',
+ handwriting: 'Handwriting practice',
+ missing: 'Missing Pieces',
+ math: 'Math Time'
+ };
+ const homeBtn = document.getElementById('homeBtn');
+
+ function openScreen(key){
+ Object.values(screens).forEach(s=>s.classList.remove('active'));
+ screens[key].classList.add('active');
+ document.getElementById('screenSubtitle').textContent = subtitles[key];
+ homeBtn.hidden = (key==='home');
+ if(key==='handwriting') hwNewItem();
+ if(key==='missing') missNewItem();
+ if(key==='math') mathNewItem();
+ window.scrollTo({top:0, behavior:'auto'});
+ }
+
+ document.querySelectorAll('[data-open]').forEach(card=>{
+ card.addEventListener('click', ()=> openScreen(card.dataset.open));
+ });
+ homeBtn.addEventListener('click', ()=> openScreen('home'));
+
+ /* ============================================================
+ PROGRESS MODAL
+ ============================================================ */
+ const progressOverlay = document.getElementById('progressOverlay');
+ document.getElementById('progressBtn').addEventListener('click', ()=>{
+ document.getElementById('statHw').textContent = pct(stats.handwriting)+'%';
+ document.getElementById('statMiss').textContent = pct(stats.missing)+'%';
+ document.getElementById('statMath').textContent = pct(stats.math)+'%';
+ const totalCorrect = stats.handwriting.correct + stats.missing.correct + stats.math.correct;
+ const totalAll = stats.handwriting.total + stats.missing.total + stats.math.total;
+ document.getElementById('statOverall').textContent = (totalAll===0 ? 0 : Math.round((totalCorrect/totalAll)*100))+'%';
+ progressOverlay.classList.add('show');
+ });
+ document.getElementById('progressCloseBtn').addEventListener('click', ()=> progressOverlay.classList.remove('show'));
+ progressOverlay.addEventListener('click', (e)=>{ if(e.target===progressOverlay) progressOverlay.classList.remove('show'); });
+
+ /* initial state */
+ hwNewItem();
+})();
+</script>
+</body>
+</html>
