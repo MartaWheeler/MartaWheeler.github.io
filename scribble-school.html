@@ -515,15 +515,27 @@
  }catch(e){ usedML=false; }
  }
 
- let ok, close;
+ let ok, close, modelPending;
+ if(isDigit){
  if(usedML){
- ok = (mlDigit === parseInt(targetChar,10)) || score >= 0.58;
- close = !ok && score >= 0.40;
+ // Digits are graded by the actual trained recognizer — no shape-score
+ // shortcut, so "correct" only ever means the digit was really read as such.
+ ok = (mlDigit === parseInt(targetChar,10));
+ close = !ok && score >= 0.45;
+ modelPending = false;
+ } else {
+ // Recognizer isn't loaded yet (or failed to load). Fall back to shape
+ // matching, but set a high bar so we never falsely say "correct".
+ ok = score >= 0.72;
+ close = !ok && score >= 0.5;
+ modelPending = !tfReady;
+ }
  } else {
  ok = score >= 0.50;
  close = !ok && score >= 0.35;
+ modelPending = false;
  }
- return { ok, close, empty:false, score, usedML, mlDigit };
+ return { ok, close, empty:false, score, usedML, mlDigit, modelPending };
  }
 
  /* ============== drawing canvas wiring ============== */
@@ -644,6 +656,7 @@
  document.getElementById('hwCheckBtn').addEventListener('click', ()=>{
  const result = checkDrawing(hwCurrent, hwDrawCanvas);
  if(result.empty){ showFeedback(hwFeedbackEl, false, "✍️ Draw the letter first!"); return; }
+ if(result.modelPending){ showFeedback(hwFeedbackEl, false, "🧠 Just a sec — still getting ready. Try Check again!"); return; }
  recordAttempt('handwriting', result.ok);
  updateScoreTags();
  if(result.ok){
@@ -809,7 +822,7 @@
  const a=randInt(1,9), b=randInt(1,9), c=randInt(1,9), d=randInt(1,9);
  const left = a+b, right = c+d;
  mathAnswer = left<right ? '<' : left>right ? '>' : '=';
- mathExerciseEl.textContent = `${a} + ${b} ? ${c} + ${d}`;
+ mathExerciseEl.innerHTML = `${a} + ${b} <span class="blankSlot">&nbsp;&nbsp;</span> ${c} + ${d}`;
  } else {
  compareArea.style.display = 'none';
  answerArea.style.display = 'block';
@@ -867,6 +880,7 @@
  document.getElementById('mathCheckBtn').addEventListener('click', ()=>{
  const result = checkDrawing(String(mathAnswer), mathDrawCanvas);
  if(result.empty){ showFeedback(mathFeedbackEl, false, "✍️ Write your answer in the box first!"); return; }
+ if(result.modelPending){ showFeedback(mathFeedbackEl, false, "🧠 Still getting ready — try again in a sec, or tap 🔢 Number pad for an instant check!"); return; }
  recordAttempt('math', result.ok);
  updateScoreTags();
  if(result.ok){
