@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Breach Analytics — Marta Wheeler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5F0;
+    --ink:#1A1F2B;
+    --navy:#1F3A5F;
+    --navy-deep:#13233B;
+    --amber:#C77B3C;
+    --slate:#6B7280;
+    --line:#D8D3C7;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  header.hero{
+    background:var(--navy-deep);
+    color:var(--white);
+    padding:96px 0 72px;
+  }
+  .eyebrow{
+    font-family:'DM Mono', monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:13px;
+    color:var(--amber);
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    font-size:clamp(32px, 5vw, 52px);
+    line-height:1.15;
+    margin:0 0 24px;
+  }
+  .hero-sub{
+    font-size:17px;
+    color:#C9CDD6;
+    max-width:640px;
+    margin:0 0 32px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    font-family:'DM Mono', monospace;
+    font-size:13px;
+    color:#9AA1AE;
+    border-top:1px solid #2C3B54;
+    padding-top:24px;
+  }
+  .hero-meta span b{color:#D5D9E0;font-weight:500;}
+
+  main section{padding:64px 0;}
+  main section + section{border-top:1px solid var(--line);}
+
+  h2{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    font-size:30px;
+    margin:0 0 8px;
+  }
+  .section-label{
+    font-family:'DM Mono', monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--amber);
+    font-weight:500;
+    margin:0 0 12px;
+  }
+  p{color:var(--ink);font-size:16px;}
+  .lede{font-size:17px;color:var(--slate);max-width:680px;}
+
+  .field-grid{margin-top:32px;}
+  .field-row{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:24px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .field-row:first-child{border-top:none;}
+  .field-row dt{font-weight:600;font-size:15px;}
+  .field-row dd{margin:0;color:var(--slate);font-size:14.5px;}
+
+  .callout{
+    background:#EFEAE0;
+    border-radius:6px;
+    padding:24px 28px;
+    margin-top:36px;
+  }
+  .callout .section-label{margin-bottom:8px;}
+  .callout p{margin:0;font-size:15px;}
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:32px;
+  }
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px;
+  }
+  .card h3{
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--navy);
+    margin:0 0 10px;
+  }
+  .card p{font-size:14.5px;color:var(--slate);margin:0;}
+
+  .dark-card-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:32px;
+  }
+  .dark-card{
+    background:var(--navy-deep);
+    border-radius:6px;
+    padding:24px;
+    color:#D5D9E0;
+  }
+  .dark-card h3{
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--amber);
+    margin:0 0 10px;
+  }
+  .dark-card p{font-size:14.5px;color:#D5D9E0;margin:0;}
+  section.dark-section{
+    background:var(--navy-deep);
+    color:var(--white);
+  }
+  section.dark-section .lede{color:#C9CDD6;}
+
+  .stage-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-top:32px;
+  }
+  .stage{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px;
+  }
+  .stage .num{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'DM Serif Display',serif;font-size:17px;
+    margin-bottom:14px;
+  }
+  .stage h4{font-size:15px;margin:0 0 8px;}
+  .stage p{font-size:13.5px;color:var(--slate);margin:0;}
+
+  table.results{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:28px;
+    font-size:14.5px;
+  }
+  table.results th, table.results td{
+    text-align:left;
+    padding:12px 14px;
+    border-bottom:1px solid var(--line);
+  }
+  table.results th{
+    font-family:'DM Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+    font-weight:500;
+  }
+  table.results td.num{font-weight:600;text-align:right;font-family:'DM Mono',monospace;}
+
+  ul.plain{list-style:none;margin:24px 0 0;padding:0;}
+  ul.plain li{
+    padding-left:22px;
+    position:relative;
+    margin-bottom:16px;
+    font-size:15px;
+    color:var(--slate);
+  }
+  ul.plain li::before{
+    content:"—";
+    position:absolute;left:0;color:var(--amber);
+  }
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    margin-top:8px;
+  }
+  .two-col h3{
+    font-size:15px;color:var(--amber);
+    font-family:'DM Sans',sans-serif;font-weight:600;
+    margin:0 0 4px;
+  }
+
+  footer{
+    padding:48px 0 80px;
+    font-family:'DM Mono',monospace;
+    font-size:12.5px;
+    color:var(--slate);
+  }
+  footer a{color:var(--navy);text-decoration:underline;}
+
+  @media (max-width:720px){
+    .field-row{grid-template-columns:1fr;gap:6px;}
+    .card-grid, .dark-card-grid, .stage-grid, .two-col{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Data Breach Analytics</p>
+    <h1>Predicting Which Breaches Become High-Impact Stories</h1>
+    <p class="hero-sub">Exploratory analysis and classification modeling on a 339-incident breach-disclosure dataset — examining sector risk, loss severity, and what predicts whether a breach becomes a major, high-visibility story.</p>
+    <div class="hero-meta">
+      <span>Type: <b>Independent analysis project</b></span>
+      <span>Methods: <b>EDA, feature engineering, classification</b></span>
+      <span>Tools: <b>Python, scikit-learn, XGBoost, SMOTE</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <div class="wrap">
+      <p class="section-label">The Dataset</p>
+      <h2>339 disclosed breaches, one question</h2>
+      <p class="lede">Each row is a publicly disclosed data breach, with attributes describing the organization, the method of compromise, the scale and sensitivity of the exposure, and — the target variable — whether the incident was flagged as an especially notable, high-profile story.</p>
+
+      <dl class="field-grid">
+        <div class="field-row">
+          <dt>Entity &amp; sector</dt>
+          <dd>Which organization, and which industry — web, healthcare, government, financial, retail, and more</dd>
+        </div>
+        <div class="field-row">
+          <dt>Method</dt>
+          <dd>How the breach happened — hacked, poor security, lost device, inside job, "oops!"</dd>
+        </div>
+        <div class="field-row">
+          <dt>Records lost &amp; sensitivity</dt>
+          <dd>Scale of the exposure, and how sensitive the exposed data was (email address only vs. full personal or financial detail)</dd>
+        </div>
+        <div class="field-row">
+          <dt>"Interesting story"</dt>
+          <dd>Whether the breach was flagged as a notable, high-profile story — the target variable for the modeling stage</dd>
+        </div>
+      </dl>
+
+      <div class="callout">
+        <p class="section-label">Framing the problem</p>
+        <p>Rather than only describing past breaches, the goal was to test whether disclosed attributes — sector, method, scale, sensitivity — can predict which incidents escalate into major, high-visibility events.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="section-label">Descriptive Analysis</p>
+      <h2>Frequent isn't the same as severe</h2>
+      <p class="lede">Ranking breach methods by how often they occur versus how many records they ultimately cost tells two different stories.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Most frequent method</h3>
+          <p>Hacked, then lost device, poor security, inside job, and "oops!" — hacking is by far the most common cause of disclosed breaches.</p>
+        </div>
+        <div class="card">
+          <h3>Most records lost (total)</h3>
+          <p>Hacked again leads, but poor security jumps to second — well above lost device — despite causing fewer individual incidents.</p>
+        </div>
+      </div>
+
+      <div class="card-grid" style="margin-top:20px;">
+        <div class="card">
+          <h3>Where the exposure concentrates</h3>
+          <p><b>Web</b> has the highest breach count and the most total records lost. <b>Healthcare, government,</b> and <b>financial</b> follow closely in frequency, while <b>government, financial, app,</b> and <b>retail</b> lose the most records overall.</p>
+        </div>
+        <div class="card">
+          <h3>An outlier worth noting</h3>
+          <p><b>Military</b> shows strong resistance to hacking, but its exposure comes almost entirely through lost devices — pointing to a process and training gap rather than a technical one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-section">
+    <div class="wrap">
+      <p class="section-label">Drivers of a High-Impact Story</p>
+      <h2>Newsworthy breaches share a profile</h2>
+      <p class="lede">Only around 20% of disclosed breaches in the dataset were flagged as high-impact — a strongly imbalanced target that shaped the modeling approach that followed.</p>
+
+      <div class="dark-card-grid">
+        <div class="dark-card">
+          <h3>Scale</h3>
+          <p>More records lost — and especially very large (100M+) exposures — is strongly associated with high-impact stories.</p>
+        </div>
+        <div class="dark-card">
+          <h3>Sensitivity</h3>
+          <p>Breaches exposing full personal or financial detail, not just an email address, were disproportionately "interesting."</p>
+        </div>
+        <div class="dark-card">
+          <h3>Method</h3>
+          <p>"Oops!" and lost-device incidents punched above their weight — nearly half became notable stories, more than hacking did.</p>
+        </div>
+        <div class="dark-card">
+          <h3>Sector</h3>
+          <p>Legal, military, and financial breaches were most likely to become high-profile, even when less frequent overall.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="section-label">Predictive Modeling</p>
+      <h2>Eight classifiers, three data treatments</h2>
+      <p class="lede">Logistic Regression, Decision Tree, Naive Bayes, Gradient Boosting, Random Forest, SVM, KNN, and XGBoost were each evaluated across three stages of data preparation.</p>
+
+      <div class="stage-grid">
+        <div class="stage">
+          <div class="num">1</div>
+          <h4>Baseline</h4>
+          <p>Raw features, one-hot encoded categoricals — every model underperformed the 80% no-information baseline.</p>
+        </div>
+        <div class="stage">
+          <div class="num">2</div>
+          <h4>Scaled</h4>
+          <p>Numeric features standardized — a modest improvement, still close to baseline.</p>
+        </div>
+        <div class="stage">
+          <div class="num">3</div>
+          <h4>Scaled + Balanced</h4>
+          <p>SMOTE oversampling to address the roughly 80/20 class imbalance — the best results across the board.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p class="section-label">Best result</p>
+        <p><b>KNN (k = 3) on scaled, balanced data.</b> Accuracy landed roughly at the 80% no-information baseline — matching, not beating, the "guess the majority class" floor. Precision and recall on the minority ("interesting") class remained weak, meaning the signal in these features alone wasn't strong enough for reliable production use on its own.</p>
+      </div>
+
+      <table class="results">
+        <thead>
+          <tr><th>On the 68-observation test set</th><th style="text-align:right">Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Interesting stories correctly caught</td><td class="num">4 of 11</td></tr>
+          <tr><td>Interesting stories missed</td><td class="num">7 of 11</td></tr>
+          <tr><td>Non-interesting correctly identified</td><td class="num">50 of 57</td></tr>
+          <tr><td>Non-interesting missed</td><td class="num">7 of 57</td></tr>
+        </tbody>
+      </table>
+      <p style="color:var(--slate);font-size:14px;font-style:italic;margin-top:18px;">A model that ties the baseline is a finding, not a failure — with only 339 rows and a 20% minority class, it marks the honest limit of what this feature set alone can predict.</p>
+    </div>
+  </section>
+
+  <section class="dark-section">
+    <div class="wrap">
+      <p class="section-label">Takeaways</p>
+      <h2>From analysis to action</h2>
+
+      <div class="two-col">
+        <div>
+          <h3 style="margin-top:12px;">Where to focus security investment</h3>
+          <ul class="plain">
+            <li>Prioritize hacking defenses first — highest frequency and highest total loss</li>
+            <li>Close the "poor security" gap second — fewer incidents, outsized record loss</li>
+            <li>Pair technical controls with device-loss and human-error training, where "oops!" and lost-device incidents drove outsized reputational impact</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin-top:12px;">Next steps for the model</h3>
+          <ul class="plain">
+            <li>Grow the labeled dataset — 339 rows and a 20% minority class limit what any classifier can learn</li>
+            <li>Add features via NLP on the underlying breach-story text, rather than relying only on derived categorical columns</li>
+            <li>Explore unsupervised clustering to surface breach archetypes the label alone doesn't capture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Marta Wheeler · Data Breach Analytics Project
+  </div>
+</footer>
+
+</body>
+</html>
